@@ -1,26 +1,27 @@
 @import 'tw-animate-css';
 
-@plugin "tailwindcss-animate";
-
 @custom-variant dark (&:is(.dark *));
 
 @import 'tailwindcss';
 
-/* Custom styles */
-body {
-  margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/*
+ * Paddock design language
+ * -----------------------
+ * Roles: green = identity/surfaces/emphasis, brass = interaction
+ * (buttons, links, focus, selection), spark colors = data only.
+ * Two coherent themes (warm light + warm dark). See docs/design-language.md.
+ */
 
 @theme inline {
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Archivo Variable', 'Geist Variable', ui-sans-serif, sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', monospace;
+
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -29,6 +30,7 @@ body {
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-emphasis: var(--primary-emphasis);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -36,91 +38,161 @@ body {
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand — turf green */
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-emphasis: var(--brand-emphasis);
+  --color-brand-subtle: var(--brand-subtle);
+  /* Brand surface — stays deep turf green in both themes (nav bar etc.) */
+  --color-brand-bar: var(--brand-bar);
+  --color-brand-bar-foreground: var(--brand-bar-foreground);
+
+  /* Semantic states */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-danger: var(--danger);
+  --color-danger-foreground: var(--danger-foreground);
+
+  /* Spark / factor colors — game-faithful, data only */
+  --color-spark-blue: var(--spark-blue);
+  --color-spark-blue-bg: var(--spark-blue-bg);
+  --color-spark-blue-fg: var(--spark-blue-fg);
+  --color-spark-pink: var(--spark-pink);
+  --color-spark-pink-bg: var(--spark-pink-bg);
+  --color-spark-pink-fg: var(--spark-pink-fg);
+  --color-spark-green: var(--spark-green);
+  --color-spark-green-bg: var(--spark-green-bg);
+  --color-spark-green-fg: var(--spark-green-fg);
+  --color-spark-amber: var(--spark-amber);
+  --color-spark-amber-bg: var(--spark-amber-bg);
+  --color-spark-amber-fg: var(--spark-amber-fg);
+  --color-spark-white: var(--spark-white);
+  --color-spark-white-bg: var(--spark-white-bg);
+  --color-spark-white-fg: var(--spark-white-fg);
 }
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Layered warm neutrals: page sits a touch grey, cards lift lighter,
+     wells recede darker — depth without pure white. */
+  --background: #ebe7dc;
+  --foreground: #211e17;
+  --card: #f8f6ef;
+  --card-foreground: #211e17;
+  --popover: #f8f6ef;
+  --popover-foreground: #211e17;
+
+  --primary: #c8a45a;
+  --primary-foreground: #2c2109;
+  --primary-emphasis: #9e7a2e;
+  --secondary: #f2eee4;
+  --secondary-foreground: #211e17;
+  --muted: #e3dece;
+  --muted-foreground: #6c6655;
+  --accent: #e7e2d4;
+  --accent-foreground: #211e17;
+
+  --destructive: #c0392b;
+  --destructive-foreground: #ffffff;
+  --border: #d9d2c1;
+  --border-strong: #c5bda8;
+  --input: #d9d2c1;
+  --ring: #c8a45a;
+
+  --brand: #1e6b43;
+  --brand-foreground: #ffffff;
+  --brand-emphasis: #14512f;
+  --brand-subtle: #edf3ee;
+  --brand-bar: #1e6b43;
+  --brand-bar-foreground: #f4f1e9;
+
+  --success: #3b6d11;
+  --success-foreground: #ffffff;
+  --warning: #ba7517;
+  --warning-foreground: #ffffff;
+  --danger: #c0392b;
+  --danger-foreground: #ffffff;
+
+  --spark-blue: #2d7dd2;
+  --spark-blue-bg: #e6f0fb;
+  --spark-blue-fg: #1b5187;
+  --spark-pink: #d4537e;
+  --spark-pink-bg: #fbe7ef;
+  --spark-pink-fg: #97304f;
+  --spark-green: #639922;
+  --spark-green-bg: #e9f3dd;
+  --spark-green-fg: #3b6d11;
+  --spark-amber: #e0a11e;
+  --spark-amber-bg: #faeeda;
+  --spark-amber-fg: #854f0b;
+  --spark-white: #888780;
+  --spark-white-bg: #efece3;
+  --spark-white-fg: #5f5e5a;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --background: #14160f;
+  --foreground: #eceadf;
+  --card: #1c1f17;
+  --card-foreground: #eceadf;
+  --popover: #1c1f17;
+  --popover-foreground: #eceadf;
+
+  --primary: #d9b873;
+  --primary-foreground: #2c2109;
+  --primary-emphasis: #e4cb8f;
+  --secondary: #232720;
+  --secondary-foreground: #eceadf;
+  --muted: #232720;
+  --muted-foreground: #a7a294;
+  --accent: #2a2f24;
+  --accent-foreground: #eceadf;
+
+  --destructive: #e5705f;
+  --destructive-foreground: #1a0c09;
+  --border: #2f3429;
+  --border-strong: #434a3a;
+  --input: #2f3429;
+  --ring: #d9b873;
+
+  --brand: #6fb286;
+  --brand-foreground: #14160f;
+  --brand-emphasis: #8cc6a0;
+  --brand-subtle: #1b2a1f;
+  --brand-bar: #17532f;
+  --brand-bar-foreground: #eef3ee;
+
+  --success: #8fcf5f;
+  --success-foreground: #14160f;
+  --warning: #e2a83f;
+  --warning-foreground: #14160f;
+  --danger: #e5705f;
+  --danger-foreground: #1a0c09;
+
+  --spark-blue: #5aa9f0;
+  --spark-blue-bg: #15304c;
+  --spark-blue-fg: #7fbdf5;
+  --spark-pink: #f08ab0;
+  --spark-pink-bg: #3c1c2b;
+  --spark-pink-fg: #f3a6c4;
+  --spark-green: #9fd15a;
+  --spark-green-bg: #233a12;
+  --spark-green-fg: #a7d86a;
+  --spark-amber: #f0c14b;
+  --spark-amber-bg: #3a2c12;
+  --spark-amber-fg: #f0c14b;
+  --spark-white: #b4b2a9;
+  --spark-white-bg: #2a2a24;
+  --spark-white-fg: #c9c7bd;
 }
 
 @layer base {
@@ -129,27 +201,64 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    font-feature-settings: 'tnum' 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
   }
-
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .font-display {
+    font-family: var(--font-display);
+  }
+  /* Tabular figures for stat readouts */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
+  }
   pre {
     white-space: pre-wrap;
   }
+  /* Every interactive control gets a pointer cursor */
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab'],
+  label:has(> input),
+  summary {
+    cursor: pointer;
+  }
 }
 
-/* Grid pattern backgrounds for breeding tree */
+@layer components {
+  /* Sporty scoreboard micro-label (e.g. AFFINITY, SPARK PROCS) */
+  .scoreboard-label {
+    font-size: 0.6875rem;
+    line-height: 1rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+  }
+}
+
+/* Faint turf hairline grid for the breeding-tree canvas */
 .grid-pattern-light {
   background-image:
     linear-gradient(
       to right,
-      rgba(59, 130, 246, 0.1) 0,
-      rgba(59, 130, 246, 0.1) 2px,
-      transparent 2px
+      rgba(30, 107, 67, 0.07) 0,
+      rgba(30, 107, 67, 0.07) 1px,
+      transparent 1px
     ),
     linear-gradient(
       to bottom,
-      rgba(59, 130, 246, 0.1) 0,
-      rgba(59, 130, 246, 0.1) 2px,
-      transparent 2px
+      rgba(30, 107, 67, 0.07) 0,
+      rgba(30, 107, 67, 0.07) 1px,
+      transparent 1px
     );
   background-size: 60px 60px;
 }
@@ -158,15 +267,15 @@ body {
   background-image:
     linear-gradient(
       to right,
-      rgba(99, 102, 241, 0.2) 0,
-      rgba(99, 102, 241, 0.2) 2px,
-      transparent 2px
+      rgba(111, 178, 134, 0.1) 0,
+      rgba(111, 178, 134, 0.1) 1px,
+      transparent 1px
     ),
     linear-gradient(
       to bottom,
-      rgba(99, 102, 241, 0.2) 0,
-      rgba(99, 102, 241, 0.2) 2px,
-      transparent 2px
+      rgba(111, 178, 134, 0.1) 0,
+      rgba(111, 178, 134, 0.1) 1px,
+      transparent 1px
     );
   background-size: 60px 60px;
 }

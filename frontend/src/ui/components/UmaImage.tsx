@@ -32,8 +32,8 @@ const UmaImage: React.FC<UmaImageProps> = ({
   return (
     <div className={`relative ${className}`}>
       {isLoading && !hasError && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse rounded-lg flex items-center justify-center">
-          <div className="text-gray-400 text-xs">Loading...</div>
+        <div className="absolute inset-0 bg-muted animate-pulse rounded-lg flex items-center justify-center">
+          <div className="text-muted-foreground text-xs">Loading...</div>
         </div>
       )}
       <img

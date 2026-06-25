@@ -3,6 +3,7 @@ import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import ThemeToggle from '../../components/ThemeToggle'
+import PaddockLogo from './PaddockLogo'
 
 interface NavigationProps {
   currentPage: 'breeding-tree' | 'instructions'
@@ -13,19 +14,19 @@ const Navigation = ({ currentPage }: NavigationProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
-    <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-sm">
+    <header className="bg-brand-bar text-brand-bar-foreground border-b border-border shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center gap-3">
-            <a href="https://umamily.moe" rel="noopener noreferrer">
-              <img
-                src="/logo.gif"
-                alt="Gold Ship Uma Musume"
-                className="w-10 h-10 rounded-lg object-cover"
-              />
+            <a
+              href="https://umamily.moe"
+              rel="noopener noreferrer"
+              aria-label="Paddock home"
+            >
+              <PaddockLogo className="w-10 h-10 rounded-lg" />
             </a>
-            <h1 className="max-sm:hidden text-xl font-bold text-gray-900 dark:text-white">
-              Uma Pedigree Maker
+            <h1 className="max-sm:hidden text-xl font-bold text-brand-bar-foreground">
+              Paddock
             </h1>
           </div>
 
@@ -74,7 +75,7 @@ const Navigation = ({ currentPage }: NavigationProps) => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+          <div className="md:hidden border-t border-border bg-brand-bar">
             <nav className="px-4 py-3 space-y-2">
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button

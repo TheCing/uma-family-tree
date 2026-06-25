@@ -3,6 +3,7 @@ import { Input } from '@/ui/base/input'
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui/base/popover'
 import { Separator } from '@/ui/base/separator'
 import { Textarea } from '@/ui/base/textarea'
+import SparkCell from '@/ui/base/spark-cell'
 import { pickBadgeColorBySparkType, renderSparkType } from '@/utils/formatting'
 import { Star, X } from 'lucide-react'
 import React, { useState } from 'react'
@@ -12,7 +13,6 @@ import {
   WHITE_SPARK_SKILLS,
 } from '../../assets/white-sparks'
 import type { SparkData, WhiteSparkData } from '../../types/uma'
-import { LOCALE_EN } from '../../locale/en'
 import { mergeTwClass } from '../../lib/utils'
 
 interface WhiteSparkSelectorProps {
@@ -180,7 +180,7 @@ export default function WhiteSparkSelector({
     return (
       <Badge
         variant="secondary"
-        className={`text-[10px] dark:hover:text-white px-1 py-0 ${pickBadgeColorBySparkType(sparkType ?? '')}`}
+        className={`text-[10px] px-1 py-0 ${pickBadgeColorBySparkType(sparkType ?? '')}`}
       >
         {renderSparkType(sparkType)}
       </Badge>
@@ -190,25 +190,18 @@ export default function WhiteSparkSelector({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Badge
-          variant="outline"
-          role="button"
-          className={
-            'text-xs w-full justify-center cursor-pointer select-none bg-gray-50 dark:bg-gray-400 hover:bg-gray-100 border-gray-200'
-          }
+        <SparkCell
+          tint="neutral"
+          label="White"
+          empty={!whiteSpark?.length}
           title="Set White Spark Skills"
         >
-          {whiteSpark.length > 0 ? (
-            <span className="flex items-center gap-0.5 truncate">
-              <span className="truncate">White Sparks</span>
-              <span className="ml-1 text-[10px] bg-gray-200 dark:bg-gray-600 px-1 rounded">
-                {whiteSpark.length}
-              </span>
-            </span>
+          {whiteSpark?.length ? (
+            <span className="font-mono tabular-nums">{whiteSpark.length}</span>
           ) : (
-            <span>{LOCALE_EN.WHITE_SPARKS}</span>
+            '—'
           )}
-        </Badge>
+        </SparkCell>
       </PopoverTrigger>
       <PopoverContent
         align="start"
@@ -219,13 +212,13 @@ export default function WhiteSparkSelector({
         <div className="flex justify-between items-center mb-2">
           <div className="flex w-full gap-2">
             <button
-              className="cursor-pointer text-xs uppercase tracking-wide font-semibold text-blue-600 hover:text-blue-800"
+              className="cursor-pointer text-xs uppercase tracking-wide font-semibold text-primary hover:text-primary-emphasis"
               onClick={() => setShowChronoGenesis(!showChronoGenesis)}
             >
               Paste from ChronoGenesis
             </button>
             <button
-              className="cursor-pointer ml-auto text-xs uppercase tracking-wide font-semibold text-red-600"
+              className="cursor-pointer ml-auto text-xs uppercase tracking-wide font-semibold text-destructive"
               onClick={clearAllWhiteSparks}
             >
               Clear All
@@ -235,8 +228,8 @@ export default function WhiteSparkSelector({
 
         {/* ChronoGenesis Input Section */}
         {showChronoGenesis && (
-          <div className="mb-3 p-2 border rounded bg-blue-50 dark:bg-blue-900/20">
-            <div className="text-xs text-blue-700 dark:text-blue-300 mb-2">
+          <div className="mb-3 p-2 border rounded-md bg-accent">
+            <div className="text-xs text-muted-foreground mb-2">
               Paste ChronoGenesis format (e.g., "Satsuki Sho ★★")
             </div>
             <Textarea
@@ -251,7 +244,7 @@ export default function WhiteSparkSelector({
               <button
                 onClick={applyChronoGenesisInput}
                 disabled={!chronoGenesisInput.trim()}
-                className="text-xs bg-blue-600 hover:bg-blue-700 disabled:bg-gray-300 text-white px-2 py-1 rounded transition-colors"
+                className="text-xs bg-primary text-primary-foreground hover:bg-primary-emphasis disabled:bg-muted disabled:text-muted-foreground px-2 py-1 rounded-md transition-colors"
               >
                 Apply
               </button>
@@ -260,7 +253,7 @@ export default function WhiteSparkSelector({
                   setShowChronoGenesis(false)
                   setChronoGenesisInput('')
                 }}
-                className="text-xs bg-gray-500 hover:bg-gray-600 text-white px-2 py-1 rounded transition-colors"
+                className="text-xs bg-secondary text-secondary-foreground hover:bg-accent px-2 py-1 rounded-md transition-colors"
               >
                 Cancel
               </button>
@@ -289,17 +282,17 @@ export default function WhiteSparkSelector({
                     selection => selection.stat === spark.stat
                   )
                   const activeClass = active
-                    ? 'bg-gray-600 text-white'
-                    : 'hover:bg-gray-100'
+                    ? 'ring-2 ring-primary border-spark-white font-medium'
+                    : 'hover:border-spark-white'
                   const disabledClass = disabled
-                    ? 'bg-gray-200 text-gray-600 opacity-50 cursor-not-allowed'
+                    ? 'opacity-50 cursor-not-allowed'
                     : 'cursor-pointer'
                   return (
                     <button
                       key={`${spark.stat}`}
                       onClick={() => selectWhiteSpark(spark)}
                       className={mergeTwClass(
-                        'flex items-center gap-2 p-1 rounded text-xs transition-colors text-left dark:hover:bg-gray-400',
+                        'flex items-center gap-2 p-1 rounded-md border text-xs transition-colors text-left bg-spark-white-bg text-spark-white-fg border-spark-white/30',
                         activeClass,
                         disabledClass
                       )}
@@ -314,7 +307,7 @@ export default function WhiteSparkSelector({
                 })}
               </div>
               {filteredWhiteSparkData.length === 0 && (
-                <div className="text-xs text-gray-500 text-center py-4">
+                <div className="text-xs text-muted-foreground text-center py-4">
                   No sparks found matching "{whiteSparkSearch}"
                 </div>
               )}
@@ -328,26 +321,26 @@ export default function WhiteSparkSelector({
 
           {/* Levels Column */}
           <div className="w-1/3">
-            <div className="text-[10px] text-gray-600 mb-2">Level</div>
+            <div className="text-[10px] text-muted-foreground mb-2">Level</div>
             <div className="flex flex-col gap-1">
               {starLevels.map(lvl => {
                 const active = currentWhiteSpark.level === lvl
                 const activeClass = active
-                  ? 'bg-amber-500 text-white border-amber-500'
-                  : 'bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-800'
+                  ? 'ring-2 ring-primary border-spark-amber'
+                  : ''
                 return (
                   <button
                     key={lvl}
                     onClick={() => selectWhiteSparkLevel(lvl)}
                     className={mergeTwClass(
-                      `text-xs rounded-full px-2 py-1 border flex items-center justify-center gap-0.5 transition-colors}`,
+                      `text-xs rounded-full px-2 py-1 border flex items-center justify-center gap-0.5 transition-colors bg-spark-amber-bg text-spark-amber-fg border-spark-amber/30 hover:border-spark-amber`,
                       activeClass
                     )}
                   >
                     {Array.from({ length: lvl }).map((_, i) => (
                       <Star
                         key={i}
-                        className="w-3 h-3 fill-amber-400 text-amber-400"
+                        className="w-3 h-3 fill-spark-amber text-spark-amber"
                       />
                     ))}
                   </button>
@@ -357,7 +350,7 @@ export default function WhiteSparkSelector({
             <button
               onClick={addWhiteSpark}
               disabled={!currentWhiteSpark.spark}
-              className="w-full mt-2 text-xs bg-green-600 hover:bg-green-700 disabled:bg-gray-300 disabled:text-gray-600 text-white px-2 py-1 rounded transition-colors"
+              className="w-full mt-2 text-xs bg-primary text-primary-foreground hover:bg-primary-emphasis disabled:bg-muted disabled:text-muted-foreground px-2 py-1 rounded-md transition-colors"
             >
               Add
             </button>
@@ -367,15 +360,15 @@ export default function WhiteSparkSelector({
         {/* Selected Sparks Display */}
         {whiteSpark.length > 0 && (
           <div className="border-t pt-2">
-            <div className="text-[10px] text-gray-600 mb-1">
+            <div className="text-[10px] text-muted-foreground mb-1">
               Selected ({whiteSpark.length}):
             </div>
             <div className="flex flex-wrap gap-1 max-h-20">
-              {whiteSpark.map((spark, index) => (
+              {whiteSpark.map(spark => (
                 <Badge
-                  key={`selected-${spark.stat}-${index}`}
+                  key={`selected-${spark.stat}`}
                   variant="outline"
-                  className="text-[10px] px-1 py-0.5 flex items-center gap-1 cursor-pointer hover:bg-white hover:text-gray-600"
+                  className="text-[10px] px-1 py-0.5 flex items-center gap-1 cursor-pointer hover:bg-muted hover:text-muted-foreground"
                   onClick={() => removeWhiteSpark(spark)}
                 >
                   <span className="truncate max-w-20">{spark.stat}</span>
@@ -383,11 +376,11 @@ export default function WhiteSparkSelector({
                     {Array.from({ length: spark.level }).map((_, i) => (
                       <Star
                         key={i}
-                        className="w-2 h-2 fill-amber-400 text-amber-400"
+                        className="w-2 h-2 fill-spark-amber text-spark-amber"
                       />
                     ))}
                   </span>
-                  <span className="text-red-500 hover:text-red-700">
+                  <span className="text-destructive hover:text-destructive">
                     <X className="w-3 h-3" />
                   </span>
                 </Badge>
@@ -397,7 +390,7 @@ export default function WhiteSparkSelector({
         )}
 
         {currentWhiteSpark.spark && currentWhiteSpark.level && (
-          <div className="mt-2 text-[10px] text-green-700 font-medium flex items-center gap-1">
+          <div className="mt-2 text-[10px] text-muted-foreground font-medium flex items-center gap-1">
             Ready to add: {currentWhiteSpark.spark.stat} –{' '}
             {currentWhiteSpark.level}★
           </div>

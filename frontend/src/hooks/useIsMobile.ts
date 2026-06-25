@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 
 export const useIsMobile = (breakpoint: number = 600) => {
-  const [isMobile, setIsMobile] = useState(false)
+  // Initialise from the real viewport width to avoid a desktop->mobile flash
+  // on first paint. Guarded for non-DOM (SSR) environments.
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window === 'undefined' ? false : window.innerWidth < breakpoint
+  )
 
   useEffect(() => {
     const checkIsMobile = () => {

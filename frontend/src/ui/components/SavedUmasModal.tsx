@@ -1,19 +1,17 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/ui/base/dialog'
 import { Input } from '@/ui/base/input'
 import { Button } from '@/ui/base/button'
-import { Heart, Edit2, Trash2, Save, X, Folder } from 'lucide-react'
+import { Edit2, Trash2, Save, X, Folder } from 'lucide-react'
 import { useState } from 'react'
 import { useSavedUmas } from '../../hooks/useSavedUmas'
-import {
-  getImagePath,
-  getUmaNameById,
-  renderSparkInfo,
-} from '../../utils/formatting'
+import { getUmaNameById, renderSparkInfo } from '../../utils/formatting'
+import SavedUmaAvatar from './SavedUmaAvatar'
 
 interface SavedUmasModalProps {
   isOpen: boolean
@@ -67,7 +65,7 @@ const SavedUmasModal: React.FC<SavedUmasModalProps> = ({ isOpen, onClose }) => {
     <>
       {/* Notification */}
       {notification && (
-        <div className="fixed top-4 right-4 bg-green-600 dark:bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-50">
+        <div className="fixed top-4 right-4 bg-brand text-brand-foreground px-4 py-2 rounded-md shadow-lg z-50">
           {notification}
         </div>
       )}
@@ -80,6 +78,9 @@ const SavedUmasModal: React.FC<SavedUmasModalProps> = ({ isOpen, onClose }) => {
               <Folder className="w-5 h-5" />
               Saved Umas ({savedUmasStats.total})
             </DialogTitle>
+            <DialogDescription>
+              View, rename, or remove your saved Uma presets.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="flex-1 overflow-y-auto space-y-3">
@@ -87,31 +88,18 @@ const SavedUmasModal: React.FC<SavedUmasModalProps> = ({ isOpen, onClose }) => {
               savedUmas.map(uma => (
                 <div
                   key={uma.nickname}
-                  className="flex items-center gap-3 p-3 border rounded-lg bg-card dark:bg-gray-800 hover:bg-accent/50 dark:hover:bg-gray-700/50 transition-colors"
+                  className="flex items-center gap-3 p-3 border border-border rounded-lg bg-card hover:bg-accent/50 transition-colors"
                 >
                   {/* Uma Image */}
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted dark:bg-gray-700">
-                      {uma.id ? (
-                        <img
-                          src={getImagePath(uma.id)}
-                          alt={getUmaNameById(uma.id)}
-                          className="w-full h-full object-cover"
-                          onError={e => {
-                            e.currentTarget.style.display = 'none'
-                          }}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <Heart className="w-6 h-6 text-muted-foreground" />
-                        </div>
-                      )}
+                    <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted">
+                      <SavedUmaAvatar umaId={uma.id} />
                     </div>
                   </div>
 
                   {/* Uma Info */}
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm text-muted-foreground dark:text-gray-400">
+                    <div className="text-sm text-muted-foreground">
                       {uma.name || getUmaNameById(uma.id) || 'Unknown Uma'}
                     </div>
 
@@ -140,12 +128,12 @@ const SavedUmasModal: React.FC<SavedUmasModalProps> = ({ isOpen, onClose }) => {
                         </Button>
                       </div>
                     ) : (
-                      <div className="font-medium text-sm truncate dark:text-white">
+                      <div className="font-medium text-sm truncate">
                         {uma.nickname}
                       </div>
                     )}
 
-                    <div className="text-xs text-muted-foreground dark:text-gray-400 mt-1">
+                    <div className="text-xs text-muted-foreground mt-1">
                       {`${renderSparkInfo(uma.blueSpark)} | ${renderSparkInfo(
                         uma.pinkSpark
                       )} | ${uma.races.length} races won | ${uma.whiteSpark?.length} white spark(s)`}
@@ -179,10 +167,10 @@ const SavedUmasModal: React.FC<SavedUmasModalProps> = ({ isOpen, onClose }) => {
             ) : (
               <div className="text-center py-8">
                 <Folder className="w-12 h-12 mx-auto text-muted-foreground/50 mb-4" />
-                <p className="text-muted-foreground dark:text-gray-400">
+                <p className="text-muted-foreground">
                   No saved Umas yet
                 </p>
-                <p className="text-sm text-muted-foreground dark:text-gray-400 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   Save Umas from the breeding tree to manage them here
                 </p>
               </div>

@@ -230,7 +230,7 @@ export function useUrlSharing() {
     if (!decodedData) return false
 
     const jsonData = JSON.stringify(decodedData)
-    return importTreeData(jsonData, true)
+    return importTreeData(jsonData)
   }, [decodeTreeDataFromUrl, importTreeData])
 
   /**

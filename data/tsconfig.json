@@ -1,8 +1,18 @@
 {
-  "extends": "../tsconfig.backend.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "../",
+    "target": "ES2020",
+    "lib": ["ES2020"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "types": ["node"],
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
       "~/*": ["../*"]
@@ -10,8 +20,7 @@
   },
   "include": [
     "**/*.ts",
-    "**/*.js",
-    "../types/**/*.ts",
+    "types/**/*.ts",
     "../frontend/src/types/characterNameId.ts",
     "../frontend/src/types/dressData.ts",
     "../frontend/src/types/relation.ts",

@@ -1,5 +1,11 @@
-// Custom event system for localStorage changes
-type LocalStorageEventHandler = (key: string, newValue: unknown) => void
+// Custom event system for localStorage changes.
+// `source` identifies the hook instance that emitted the change so subscribers
+// can ignore their own broadcasts (avoids a redundant self re-render).
+type LocalStorageEventHandler = (
+  key: string,
+  newValue: unknown,
+  source?: symbol
+) => void
 
 class LocalStorageEventManager {
   private listeners: Map<string, Set<LocalStorageEventHandler>> = new Map()
@@ -22,10 +28,10 @@ class LocalStorageEventManager {
     }
   }
 
-  emit(key: string, newValue: unknown) {
+  emit(key: string, newValue: unknown, source?: symbol) {
     const handlers = this.listeners.get(key)
     if (handlers) {
-      handlers.forEach(handler => handler(key, newValue))
+      handlers.forEach(handler => handler(key, newValue, source))
     }
   }
 }

@@ -6,6 +6,18 @@
     "dress_color_main": "#EE6DCB"
   },
   {
+    "chara_id": "100102",
+    "chara_name": "[Hopp'n♪Happy Heart] Special Week",
+    "chara_id_base": "1001",
+    "dress_color_main": "#EE6DCB"
+  },
+  {
+    "chara_id": "100103",
+    "chara_name": "[Ruler of Japan] Special Week",
+    "chara_id_base": "1001",
+    "dress_color_main": "#EE6DCB"
+  },
+  {
     "chara_id": "100201",
     "chara_name": "[Innocent Silence] Silence Suzuka",
     "chara_id_base": "1002",
@@ -30,14 +42,32 @@
     "dress_color_main": "#EA504A"
   },
   {
+    "chara_id": "100402",
+    "chara_name": "[Hot☆Summer Night] Maruzensky",
+    "chara_id_base": "1004",
+    "dress_color_main": "#EA504A"
+  },
+  {
     "chara_id": "100501",
     "chara_name": "[Shooting Star Revue] Fuji Kiseki",
     "chara_id_base": "1005",
     "dress_color_main": "#444745"
   },
   {
+    "chara_id": "100502",
+    "chara_name": "[Succès Étoilé] Fuji Kiseki",
+    "chara_id_base": "1005",
+    "dress_color_main": "#444745"
+  },
+  {
     "chara_id": "100601",
     "chara_name": "[Starlight Beat] Oguri Cap",
+    "chara_id_base": "1006",
+    "dress_color_main": "#3A7AD2"
+  },
+  {
+    "chara_id": "100602",
+    "chara_name": "[Ashen Miracle] Oguri Cap",
     "chara_id_base": "1006",
     "dress_color_main": "#3A7AD2"
   },
@@ -66,8 +96,20 @@
     "dress_color_main": "#73C032"
   },
   {
+    "chara_id": "101002",
+    "chara_name": "[Bubblegum☆Memories] Taiki Shuttle",
+    "chara_id_base": "1010",
+    "dress_color_main": "#73C032"
+  },
+  {
     "chara_id": "101101",
     "chara_name": "[Stone-Piercing Blue] Grass Wonder",
+    "chara_id_base": "1011",
+    "dress_color_main": "#3A34AC"
+  },
+  {
+    "chara_id": "101102",
+    "chara_name": "[Saintly Jade Cleric] Grass Wonder",
     "chara_id_base": "1011",
     "dress_color_main": "#3A34AC"
   },
@@ -96,8 +138,20 @@
     "dress_color_main": "#DD4E31"
   },
   {
+    "chara_id": "101402",
+    "chara_name": "[Kukulkan Warrior] El Condor Pasa",
+    "chara_id_base": "1014",
+    "dress_color_main": "#DD4E31"
+  },
+  {
     "chara_id": "101501",
     "chara_name": "[O Sole Suo!] T.M. Opera O",
+    "chara_id_base": "1015",
+    "dress_color_main": "#F271C4"
+  },
+  {
+    "chara_id": "101502",
+    "chara_name": "[New Year, Same Radiance!] T.M. Opera O",
     "chara_id_base": "1015",
     "dress_color_main": "#F271C4"
   },
@@ -114,8 +168,20 @@
     "dress_color_main": "#1C7763"
   },
   {
+    "chara_id": "101702",
+    "chara_name": "[Archer by Moonlight] Symboli Rudolf",
+    "chara_id_base": "1017",
+    "dress_color_main": "#1C7763"
+  },
+  {
     "chara_id": "101801",
     "chara_name": "[Empress Road] Air Groove",
+    "chara_id_base": "1018",
+    "dress_color_main": "#0092CB"
+  },
+  {
+    "chara_id": "101802",
+    "chara_name": "[Quercus Civilis] Air Groove",
     "chara_id_base": "1018",
     "dress_color_main": "#0092CB"
   },
@@ -132,6 +198,12 @@
     "dress_color_main": "#65D283"
   },
   {
+    "chara_id": "102002",
+    "chara_name": "[Soirée des Chatons] Seiun Sky",
+    "chara_id_base": "1020",
+    "dress_color_main": "#65D283"
+  },
+  {
     "chara_id": "102101",
     "chara_name": "[Fast as Lightning] Tamamo Cross",
     "chara_id_base": "1021",
@@ -144,14 +216,32 @@
     "dress_color_main": "#20A95C"
   },
   {
+    "chara_id": "102202",
+    "chara_name": "[Titania] Fine Motion",
+    "chara_id_base": "1022",
+    "dress_color_main": "#20A95C"
+  },
+  {
     "chara_id": "102301",
     "chara_name": "[pf. Winning Equation...] Biwa Hayahide",
     "chara_id_base": "1023",
     "dress_color_main": "#B03D81"
   },
   {
+    "chara_id": "102302",
+    "chara_name": "[Rouge Caroler] Biwa Hayahide",
+    "chara_id_base": "1023",
+    "dress_color_main": "#B03D81"
+  },
+  {
     "chara_id": "102401",
     "chara_name": "[Scramble☆Zone] Mayano Top Gun",
+    "chara_id_base": "1024",
+    "dress_color_main": "#F57D38"
+  },
+  {
+    "chara_id": "102402",
+    "chara_name": "[Sunlight Bouquet] Mayano Top Gun",
     "chara_id_base": "1024",
     "dress_color_main": "#F57D38"
   },
@@ -164,6 +254,12 @@
   {
     "chara_id": "102601",
     "chara_name": "[MB-19890425] Mihono Bourbon",
+    "chara_id_base": "1026",
+    "dress_color_main": "#EE60A1"
+  },
+  {
+    "chara_id": "102602",
+    "chara_name": "[CODE: ICING] Mihono Bourbon",
     "chara_id_base": "1026",
     "dress_color_main": "#EE60A1"
   },
@@ -186,6 +282,12 @@
     "dress_color_main": "#384A86"
   },
   {
+    "chara_id": "103002",
+    "chara_name": "[Vampire Makeover!] Rice Shower",
+    "chara_id_base": "1030",
+    "dress_color_main": "#384A86"
+  },
+  {
     "chara_id": "103101",
     "chara_name": "[Always Electrifying] Ines Fujin",
     "chara_id_base": "1031",
@@ -204,10 +306,22 @@
     "dress_color_main": "#3865A1"
   },
   {
+    "chara_id": "103401",
+    "chara_name": "[Edomurasaki] Inari One",
+    "chara_id_base": "1034",
+    "dress_color_main": "#AE419E"
+  },
+  {
     "chara_id": "103501",
     "chara_name": "[Get to Winning!] Winning Ticket",
     "chara_id_base": "1035",
     "dress_color_main": "#DD3D5B"
+  },
+  {
+    "chara_id": "103601",
+    "chara_name": "[unsigned] Air Shakur",
+    "chara_id_base": "1036",
+    "dress_color_main": "#2459B4"
   },
   {
     "chara_id": "103701",
@@ -216,8 +330,20 @@
     "dress_color_main": "#3D3B3A"
   },
   {
+    "chara_id": "103702",
+    "chara_name": "[Precise Chocolatier] Eishin Flash",
+    "chara_id_base": "1037",
+    "dress_color_main": "#3D3B3A"
+  },
+  {
     "chara_id": "103801",
     "chara_name": "[Fille Éclair] Curren Chan",
+    "chara_id_base": "1038",
+    "dress_color_main": "#F86669"
+  },
+  {
+    "chara_id": "103802",
+    "chara_name": "[Ma Chérie of the New Moon] Curren Chan",
     "chara_id_base": "1038",
     "dress_color_main": "#F86669"
   },
@@ -230,6 +356,12 @@
   {
     "chara_id": "104001",
     "chara_name": "[Authentic / 1928] Gold City",
+    "chara_id_base": "1040",
+    "dress_color_main": "#245099"
+  },
+  {
+    "chara_id": "104002",
+    "chara_name": "[Autumn Cosmos] Gold City",
     "chara_id_base": "1040",
     "dress_color_main": "#245099"
   },
@@ -248,6 +380,12 @@
   {
     "chara_id": "104501",
     "chara_name": "[Murmuring Stream] Super Creek",
+    "chara_id_base": "1045",
+    "dress_color_main": "#5693DA"
+  },
+  {
+    "chara_id": "104502",
+    "chara_name": "[Chiffon-Wrapped Mummy] Super Creek",
     "chara_id_base": "1045",
     "dress_color_main": "#5693DA"
   },
@@ -282,8 +420,20 @@
     "dress_color_main": "#FA7395"
   },
   {
+    "chara_id": "105202",
+    "chara_name": "[New Year ♪ New Urara!] Haru Urara",
+    "chara_id_base": "1052",
+    "dress_color_main": "#FA7395"
+  },
+  {
     "chara_id": "105601",
     "chara_name": "[Rising☆Fortune] Matikanefukukitaru",
+    "chara_id_base": "1056",
+    "dress_color_main": "#3D89E9"
+  },
+  {
+    "chara_id": "105602",
+    "chara_name": "[Lucky Tidings] Matikanefukukitaru",
     "chara_id_base": "1056",
     "dress_color_main": "#3D89E9"
   },
@@ -300,8 +450,20 @@
     "dress_color_main": "#19B49E"
   },
   {
+    "chara_id": "105902",
+    "chara_name": "[Sapphire Sojourn] Mejiro Dober",
+    "chara_id_base": "1059",
+    "dress_color_main": "#19B49E"
+  },
+  {
     "chara_id": "106001",
     "chara_name": "[Poinsettia Ribbon] Nice Nature",
+    "chara_id_base": "1060",
+    "dress_color_main": "#28A959"
+  },
+  {
+    "chara_id": "106002",
+    "chara_name": "[Run & Win] Nice Nature",
     "chara_id_base": "1060",
     "dress_color_main": "#28A959"
   },
@@ -312,10 +474,22 @@
     "dress_color_main": "#0E9451"
   },
   {
+    "chara_id": "106102",
+    "chara_name": "[Cheerleader in Noble White] King Halo",
+    "chara_id_base": "1061",
+    "dress_color_main": "#0E9451"
+  },
+  {
     "chara_id": "106201",
     "chara_name": "[Clippety-Tippety-Clop] Matikanetannhauser",
     "chara_id_base": "1062",
     "dress_color_main": "#0f8dce"
+  },
+  {
+    "chara_id": "106401",
+    "chara_name": "[Line Breakthrough] Mejiro Palmer",
+    "chara_id_base": "1064",
+    "dress_color_main": "#27c79c"
   },
   {
     "chara_id": "106701",
@@ -340,6 +514,12 @@
     "chara_name": "[Crystalline] Mejiro Ardan",
     "chara_id_base": "1071",
     "dress_color_main": "#28baa5"
+  },
+  {
+    "chara_id": "107201",
+    "chara_name": "[Blazed Head, Covered Fists] Yaeno Muteki",
+    "chara_id_base": "1072",
+    "dress_color_main": "#da483a"
   },
   {
     "chara_id": "107401",

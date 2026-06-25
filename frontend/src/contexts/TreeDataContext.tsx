@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, ReactNode } from 'react'
+import React, { createContext, useCallback, useMemo, ReactNode } from 'react'
 import type { Uma } from '../types/uma'
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
@@ -113,20 +113,30 @@ export const TreeDataProvider: React.FC<TreeDataProviderProps> = ({
         typeof position === 'string'
           ? position.split('-').map(Number)
           : [position.level, position.position]
-      if (level === null || pos === null) return null
+      if (Number.isNaN(level) || Number.isNaN(pos)) return null
       return treeData[level]?.[pos] || null
     },
     [treeData]
   )
 
-  const value: TreeDataContextType = {
-    treeData,
-    clearTree,
-    clearTreeData,
-    updateTreeData,
-    setTree: setTreeData,
-    getUmaAtPosition,
-  }
+  const value: TreeDataContextType = useMemo(
+    () => ({
+      treeData,
+      clearTree,
+      clearTreeData,
+      updateTreeData,
+      setTree: setTreeData,
+      getUmaAtPosition,
+    }),
+    [
+      treeData,
+      clearTree,
+      clearTreeData,
+      updateTreeData,
+      setTreeData,
+      getUmaAtPosition,
+    ]
+  )
 
   return (
     <TreeDataContext.Provider value={value}>

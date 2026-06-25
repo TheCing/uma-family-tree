@@ -14,7 +14,8 @@ const TabsList = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={`inline-flex h-10 items-center justify-center rounded-md bg-gray-100 p-1 text-gray-600 ${className || ''}`}
+    role="tablist"
+    className={`inline-flex h-10 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground ${className || ''}`}
     {...props}
   />
 ))
@@ -28,7 +29,11 @@ const TabsTrigger = React.forwardRef<
 >(({ className, isActive, ...props }, ref) => (
   <button
     ref={ref}
-    className={`inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${isActive ? 'bg-white text-gray-900 shadow-sm' : 'hover:bg-white/50'
+    type="button"
+    role="tab"
+    aria-selected={isActive}
+    tabIndex={isActive ? 0 : -1}
+    className={`inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${isActive ? 'bg-card text-foreground shadow-sm' : 'hover:bg-card/50'
       } ${className || ''}`}
     {...props}
   />
@@ -43,8 +48,10 @@ const TabsContent = React.forwardRef<
 >(({ className, isActive, ...props }, ref) => (
   <div
     ref={ref}
-    className={`mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${isActive ? 'block' : 'hidden'
-      } ${className || ''}`}
+    role="tabpanel"
+    hidden={!isActive}
+    tabIndex={0}
+    className={`mt-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${className || ''}`}
     {...props}
   />
 ))

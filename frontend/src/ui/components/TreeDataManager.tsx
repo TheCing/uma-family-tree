@@ -4,6 +4,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/ui/base/popover'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/ui/base/dialog'
@@ -27,7 +28,8 @@ import { useState, useEffect } from 'react'
 import { useTreeDataWithStorage } from '../../hooks/useTreeDataWithStorage'
 import { useUrlSharing } from '../../hooks/useUrlSharing'
 import { useSavedUmas } from '../../hooks/useSavedUmas'
-import { getImagePath, getUmaNameById } from '../../utils/formatting'
+import { getUmaNameById } from '../../utils/formatting'
+import SavedUmaAvatar from './SavedUmaAvatar'
 
 interface TreeDataManagerProps {
   className?: string
@@ -66,6 +68,20 @@ export default function TreeDataManager({
   const stats = getTreeStats()
   const savedUmasStats = getSavedUmasStats()
 
+  // Auto-dismiss the notification toast, cleaning up the timer on change/unmount
+  useEffect(() => {
+    if (!notification) return
+    const timer = setTimeout(() => setNotification(''), 3000)
+    return () => clearTimeout(timer)
+  }, [notification])
+
+  // Reset the "copied" checkmark, cleaning up the timer on change/unmount
+  useEffect(() => {
+    if (!copied) return
+    const timer = setTimeout(() => setCopied(false), 2000)
+    return () => clearTimeout(timer)
+  }, [copied])
+
   // Handler functions for saved umas
   const handleEditStart = (nickname: string) => {
     setEditingUma(nickname)
@@ -80,7 +96,6 @@ export default function TreeDataManager({
       } else {
         setNotification('Failed to update nickname (may already exist)')
       }
-      setTimeout(() => setNotification(''), 3000)
     }
     setEditingUma(null)
     setEditNickname('')
@@ -95,7 +110,6 @@ export default function TreeDataManager({
     if (confirm(`Delete saved Uma "${nickname}"?`)) {
       removeSavedUma(nickname)
       setNotification('Saved Uma deleted')
-      setTimeout(() => setNotification(''), 3000)
     }
   }
 
@@ -107,10 +121,8 @@ export default function TreeDataManager({
         setNotification('Tree data loaded from URL')
         // Optionally clear URL data after loading
         clearUrlData()
-        setTimeout(() => setNotification(''), 3000)
       } else {
         setNotification('Failed to load tree data from URL')
-        setTimeout(() => setNotification(''), 3000)
       }
     }
   }, [hasUrlData, loadFromUrl, clearUrlData])
@@ -140,11 +152,8 @@ export default function TreeDataManager({
     if (success) {
       setCopied(true)
       setNotification('Short URL copied to clipboard')
-      setTimeout(() => setCopied(false), 2000)
-      setTimeout(() => setNotification(''), 3000)
     } else {
       setNotification('Failed to copy short URL to clipboard')
-      setTimeout(() => setNotification(''), 3000)
     }
   }
 
@@ -153,11 +162,8 @@ export default function TreeDataManager({
     if (success) {
       setCopied(true)
       setNotification('Full URL copied to clipboard')
-      setTimeout(() => setCopied(false), 2000)
-      setTimeout(() => setNotification(''), 3000)
     } else {
       setNotification('Failed to copy full URL to clipboard')
-      setTimeout(() => setNotification(''), 3000)
     }
   }
 
@@ -165,7 +171,7 @@ export default function TreeDataManager({
     <div className={`flex items-center gap-2 ${className}`}>
       {/* Notification */}
       {notification && (
-        <div className="fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-md shadow-lg z-50">
+        <div className="fixed top-4 right-4 bg-brand text-brand-foreground px-4 py-2 rounded-md shadow-lg z-50">
           {notification}
         </div>
       )}
@@ -211,7 +217,7 @@ export default function TreeDataManager({
                   {/* Short URL Section */}
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-green-600 dark:text-green-400">
+                      <span className="text-sm font-medium text-brand">
                         Short URL (Recommended)
                       </span>
                     </div>
@@ -251,7 +257,7 @@ export default function TreeDataManager({
                   {shareUrl && (
                     <div className="space-y-2">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        <span className="text-sm font-medium text-muted-foreground">
                           Full URL
                         </span>
                       </div>
@@ -263,7 +269,7 @@ export default function TreeDataManager({
                       <div className="flex items-center justify-between text-xs text-muted-foreground">
                         <span>Length: {shareUrl.length} chars</span>
                         {shareUrl.length > 2000 && (
-                          <div className="flex items-center gap-1 text-amber-600">
+                          <div className="flex items-center gap-1 text-warning">
                             <AlertCircle className="w-3 h-3" />
                             <span>Could be too long</span>
                           </div>
@@ -319,6 +325,9 @@ export default function TreeDataManager({
               <Heart className="w-5 h-5" />
               Saved Umas ({savedUmasStats.total})
             </DialogTitle>
+            <DialogDescription>
+              View, rename, or remove your saved Uma presets.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="flex-1 overflow-y-auto space-y-3">
@@ -326,25 +335,12 @@ export default function TreeDataManager({
               savedUmas.map(uma => (
                 <div
                   key={uma.nickname}
-                  className="flex items-center gap-3 p-3 border rounded-lg bg-card hover:bg-accent/50 transition-colors"
+                  className="flex items-center gap-3 p-3 border border-border rounded-lg bg-card hover:bg-accent/50 transition-colors"
                 >
                   {/* Uma Image */}
                   <div className="flex-shrink-0">
                     <div className="w-12 h-12 rounded-lg overflow-hidden bg-muted">
-                      {uma.id ? (
-                        <img
-                          src={getImagePath(uma.id)}
-                          alt={getUmaNameById(uma.id)}
-                          className="w-full h-full object-cover"
-                          onError={e => {
-                            e.currentTarget.style.display = 'none'
-                          }}
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <Heart className="w-6 h-6 text-muted-foreground" />
-                        </div>
-                      )}
+                      <SavedUmaAvatar umaId={uma.id} />
                     </div>
                   </div>
 

@@ -17,10 +17,10 @@ import Step11 from '@/assets/home/images/instructions/step-11.jpg'
 
 const Instructions = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 p-4 scroll-smooth">
+    <div className="min-h-screen bg-background p-4 scroll-smooth">
       <Card className="max-w-4xl mx-auto">
         <CardHeader className="text-center">
-          <CardTitle className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <CardTitle className="text-4xl font-bold text-brand">
             How to use
           </CardTitle>
         </CardHeader>
@@ -34,7 +34,7 @@ const Instructions = () => {
                 <li>
                   <a
                     href="#filling-uma-line"
-                    className="flex items-center gap-2 text-blue-600"
+                    className="flex items-center gap-2 text-primary"
                   >
                     <ArrowRight className="w-3 h-3" />
                     Filling the uma line
@@ -43,7 +43,7 @@ const Instructions = () => {
                 <li>
                   <a
                     href="#edit-sparks-inheritances"
-                    className="flex items-center gap-2 text-blue-600"
+                    className="flex items-center gap-2 text-primary"
                   >
                     <ArrowRight className="w-3 h-3" />
                     Edit Uma's sparks & inheritances
@@ -52,7 +52,7 @@ const Instructions = () => {
                 <li>
                   <a
                     href="#import-sparks-chronogenesis"
-                    className="flex items-center gap-2 text-blue-600"
+                    className="flex items-center gap-2 text-primary"
                   >
                     <ArrowRight className="w-3 h-3" />
                     Import sparks from ChronoGenesis
@@ -62,7 +62,7 @@ const Instructions = () => {
                 <li>
                   <a
                     href="#check-spark-chance-affinity"
-                    className="flex items-center gap-2 text-blue-600"
+                    className="flex items-center gap-2 text-primary"
                   >
                     <ArrowRight className="w-3 h-3" />
                     Check your spark chance & affinity
@@ -71,7 +71,7 @@ const Instructions = () => {
                 <li>
                   <a
                     href="#save-parent-uma"
-                    className="flex items-center gap-2 text-blue-600"
+                    className="flex items-center gap-2 text-primary"
                   >
                     <ArrowRight className="w-3 h-3" />
                     (Optional) Save parent uma for future re-use
@@ -80,7 +80,7 @@ const Instructions = () => {
                 <li>
                   <a
                     href="#save-entire-tree"
-                    className="flex items-center gap-2 text-blue-600"
+                    className="flex items-center gap-2 text-primary"
                   >
                     <ArrowRight className="w-3 h-3" />
                     (Optional) Save entire tree for different purposes
@@ -89,7 +89,7 @@ const Instructions = () => {
                 <li>
                   <a
                     href="#share-tree"
-                    className="flex items-center gap-2 text-blue-600"
+                    className="flex items-center gap-2 text-primary"
                   >
                     <ArrowRight className="w-3 h-3" />
                     (Optional) Share to yourself or other people
@@ -108,7 +108,7 @@ const Instructions = () => {
             >
               Filling the uma line
             </h2>
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg">
+            <div className="bg-muted mb-4 p-4 rounded-lg">
               <img src={Step1} className="block my-4" />
               <pre>
                 1+2. Select the parent umas (also repeat for lower levels)
@@ -116,7 +116,7 @@ const Instructions = () => {
               <pre>3. Select the child uma</pre>
             </div>
 
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg">
+            <div className="bg-muted mb-4 p-4 rounded-lg">
               <img src={Step2} className="block my-4" />
               <pre>1. Filter by name or pick from list</pre>
               <pre>2. Select the uma</pre>
@@ -130,7 +130,7 @@ const Instructions = () => {
             >
               Edit Uma's sparks & inheritances
             </h2>
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg whitespace-pre-wrap">
+            <div className="bg-muted mb-4 p-4 rounded-lg whitespace-pre-wrap">
               <img src={Step3} className="block my-4" />
               <pre>1. Select stats/aptitude/unique skill and levels</pre>
               <pre>2. Fill white sparks</pre>
@@ -139,7 +139,7 @@ const Instructions = () => {
               </pre>
             </div>
 
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg">
+            <div className="bg-muted mb-4 p-4 rounded-lg">
               <img src={Step4} className="block my-4" />
               <pre>1. Filter by name or pick from list</pre>
               <pre>2. Select spark level</pre>
@@ -163,7 +163,7 @@ const Instructions = () => {
                 ChronoGenesis
               </a>
             </h2>
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg">
+            <div className="bg-muted mb-4 p-4 rounded-lg">
               <div className="flex flex-wrap">
                 <img src={Step4c} className="block my-4" />
                 <img src={Step4a} className="block my-4" />
@@ -185,7 +185,7 @@ const Instructions = () => {
             >
               Check your spark chance & affinity
             </h2>
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg">
+            <div className="bg-muted mb-4 p-4 rounded-lg">
               <img src={Step8} className="block my-4" />
               <pre>
                 1. Click this to show chance to inherit spark per career (2
@@ -196,7 +196,7 @@ const Instructions = () => {
               </pre>
             </div>
 
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg">
+            <div className="bg-muted mb-4 p-4 rounded-lg">
               <h2
                 id="save-entire-tree"
                 className="text-2xl font-semibold my-4 flex items-center gap-2"
@@ -221,7 +221,7 @@ const Instructions = () => {
             >
               (Optional) Save parent uma for future re-use
             </h2>
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg whitespace-pre-wrap">
+            <div className="bg-muted mb-4 p-4 rounded-lg whitespace-pre-wrap">
               <img src={Step5} className="block my-4" />
               <pre>
                 1. Save and put in some name e.g. "Spe - Med 3* - Groundwork 3*"
@@ -230,7 +230,7 @@ const Instructions = () => {
               <pre>2. Clear this uma</pre>
             </div>
 
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg">
+            <div className="bg-muted mb-4 p-4 rounded-lg">
               <img src={Step7} className="block my-4" />
               <pre>1. Saved Uma will be here in the Uma selector</pre>
               <pre>
@@ -246,7 +246,7 @@ const Instructions = () => {
             >
               (Optional) Share to yourself or other people
             </h2>
-            <div className="bg-blue-50 dark:bg-gray-400 mb-4 p-4 rounded-lg">
+            <div className="bg-muted mb-4 p-4 rounded-lg">
               <img src={Step11} className="block my-4" />
               <pre>1. Click this to get link</pre>
               <pre>2. Click this to copy URL and paste somewhere else</pre>

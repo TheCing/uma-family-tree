@@ -1,7 +1,31 @@
 import { useCallback } from 'react'
 import { useTreeData } from './useTreeData'
 import type { TreeData } from '../contexts/TreeDataContext'
-import type { Uma } from '../types/uma'
+
+/**
+ * Validate that an arbitrary parsed value matches the TreeData shape:
+ * a map of numeric level -> numeric position -> uma object with a string `id`.
+ * Guards untrusted input from share URLs / localStorage before it enters
+ * app state.
+ */
+function isValidTreeData(value: unknown): value is TreeData {
+  if (typeof value !== 'object' || value === null) return false
+
+  return Object.entries(value as Record<string, unknown>).every(
+    ([levelKey, level]) => {
+      if (!Number.isFinite(Number(levelKey))) return false
+      if (typeof level !== 'object' || level === null) return false
+
+      return Object.entries(level as Record<string, unknown>).every(
+        ([positionKey, uma]) =>
+          Number.isFinite(Number(positionKey)) &&
+          typeof uma === 'object' &&
+          uma !== null &&
+          typeof (uma as { id?: unknown }).id === 'string'
+      )
+    }
+  )
+}
 
 /**
  * Enhanced hook for TreeData operations with localStorage utilities
@@ -27,28 +51,15 @@ export function useTreeDataWithStorage() {
    * Import tree data from JSON string
    */
   const importTreeData = useCallback(
-    (jsonData: string, override: boolean = false): boolean => {
+    (jsonData: string): boolean => {
       try {
-        const parsedData: TreeData = JSON.parse(jsonData)
-        // Validate the structure
-        if (typeof parsedData !== 'object' || parsedData === null) {
+        const parsedData: unknown = JSON.parse(jsonData)
+        if (!isValidTreeData(parsedData)) {
           throw new Error('Invalid tree data format')
         }
 
         clearTree()
         setTree(parsedData)
-
-        // Object.entries(parsedData).forEach(([levelStr, levelData]) => {
-        //   const level = parseInt(levelStr, 10)
-        //   if (typeof levelData === 'object' && levelData !== null) {
-        //     Object.entries(levelData).forEach(([positionStr, uma]) => {
-        //       const position = parseInt(positionStr, 10)
-        //       if (uma && typeof uma === 'object') {
-        //         updateTreeData(level, position, uma as Uma, override)
-        //       }
-        //     })
-        //   }
-        // })
 
         return true
       } catch (error) {

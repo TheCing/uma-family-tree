@@ -1,9 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/ui/base/card'
+import { Card, CardContent, CardHeader } from '@/ui/base/card'
 import { Button } from '@/ui/base/button'
 import { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
-import { ChevronDown, ChevronUp, X } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 import { CharacterNameID } from '@/types/characterNameId'
 import type {
   BlueSparkData,
@@ -23,6 +22,7 @@ import SavedUmasModal from '../components/SavedUmasModal'
 import MobileActionsBar from '../components/MobileActionsBar'
 import MobileLevelNavigator from '../components/MobileLevelNavigator'
 import BreedingTreeHeader from '../components/BreedingTreeHeader'
+import WhatsNew from '../components/WhatsNew'
 import { TreeSlot, TreeData } from '../../contexts/TreeDataContext'
 import UMA_LIST_WITH_ID from '../../assets/home/chara-names-with-id.json'
 import { mergeTwClass } from '../../lib/utils'
@@ -56,19 +56,6 @@ const BreedingTree = () => {
   }
 
   const [showLevel4, setShowLevel4] = useState(() => hasLevel4Data())
-  const [showUpdateBanner, setShowUpdateBanner] = useState(true)
-
-  // Update banner content - you can customize this
-  const updateBannerText = (
-    <div>
-      <strong>CHANGELOG 14/01/2026:</strong>
-      <ul>
-        <li>
-          + Added umas up to <strong>Mejiro Dober</strong>
-        </li>
-      </ul>
-    </div>
-  )
 
   const handleSelectUma = (level: number, position: number): void => {
     setSelectedSlot({ level, position })
@@ -235,44 +222,24 @@ const BreedingTree = () => {
   }
 
   return (
-    <div className=" bg-purple-50 dark:bg-gray-900">
-      {/* Update Banner */}
-      {showUpdateBanner && (
-        <div className="bg-yellow-600 text-white h-min-10 flex items-center justify-between px-4 py-2 shadow-sm">
-          <div className="text-sm font-medium truncate">{updateBannerText}</div>
-          <button
-            onClick={() => setShowUpdateBanner(false)}
-            className="ml-2 hover:bg-blue-700 rounded p-1 flex-shrink-0 transition-colors"
-            aria-label="Close update banner"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      )}
+    <div className=" bg-background">
+      {/* Floating "what's new" CTA */}
+      <WhatsNew />
 
       <div className="p-4">
-        <Card className="max-w-8xl mx-auto rounded-none shadow-none border-none bg-gray-50 dark:bg-gray-800 grid-pattern-light dark:grid-pattern-dark">
+        <Card className="max-w-8xl mx-auto rounded-none shadow-none border-none bg-background grid-pattern-light dark:grid-pattern-dark">
           <CardHeader className="text-center">
-            <CardTitle
-              className={`${isMobile ? 'text-2xl' : 'text-4xl'} font-bold text-[#DA3C57]`}
-            >
-              Uma Musume Pedigree Maker
-            </CardTitle>
-
-            <BreedingTreeHeader
-              isMobile={isMobile}
-              onClearTree={clearTree}
-              onLoadTree={handleLoadTree}
-              onOpenTreeManagerModal={() => setTreeManagerModalOpen(true)}
-              onOpenSavedUmasModal={() => setSavedUmasModalOpen(true)}
-            />
-
-            {/* Keep additional desktop actions */}
-            {!isMobile && (
-              <div className="flex justify-center items-center gap-4 mt-2">
-                <TreeDataManager />
-              </div>
-            )}
+            {/* Unified action toolbar */}
+            <div className="flex justify-center items-center gap-2 flex-wrap mt-2">
+              <BreedingTreeHeader
+                isMobile={isMobile}
+                onClearTree={clearTree}
+                onLoadTree={handleLoadTree}
+                onOpenTreeManagerModal={() => setTreeManagerModalOpen(true)}
+                onOpenSavedUmasModal={() => setSavedUmasModalOpen(true)}
+              />
+              {!isMobile && <TreeDataManager />}
+            </div>
           </CardHeader>
 
           <CardContent>

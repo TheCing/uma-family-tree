@@ -1,6 +1,6 @@
-import { Badge } from '@/ui/base/badge'
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui/base/popover'
 import { Separator } from '@/ui/base/separator'
+import SparkCell, { SparkStars } from '@/ui/base/spark-cell'
 import { Star } from 'lucide-react'
 import React from 'react'
 import type { PinkSparkData } from '../../types/uma'
@@ -39,34 +39,24 @@ const PinkSparkSelector = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Badge
-          variant="outline"
-          role="button"
-          className="text-xs w-full justify-center bg-pink-50 dark:bg-pink-400 border-pink-200 cursor-pointer select-none"
+        <SparkCell
+          tint="pink"
+          label={LOCALE_EN.APTITUDES}
+          empty={!(pinkSpark && pinkSpark.stat)}
           title="Set Pink Spark Category & Level"
         >
-          {pinkSpark && pinkSpark.stat && pinkSpark.level ? (
-            <span className="flex items-center gap-0.5">
-              <span>{pinkSpark.stat}</span>
-              <span className="flex">
-                {Array.from({ length: pinkSpark.level }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-3 h-3 fill-pink-400 text-pink-400 dark:fill-pink-50 dark:text-pink-50"
-                  />
-                ))}
-              </span>
-            </span>
+          {pinkSpark && pinkSpark.stat ? (
+            <>
+              <span className="truncate">{pinkSpark.stat}</span>
+              {pinkSpark.level ? <SparkStars level={pinkSpark.level} /> : null}
+            </>
           ) : (
-            LOCALE_EN.APTITUDES
+            '—'
           )}
-        </Badge>
+        </SparkCell>
       </PopoverTrigger>
-      <PopoverContent
-        align="start"
-        className="p-3 min-w-96 max-w-none border-pink-200"
-      >
-        <div className="text-[10px] uppercase tracking-wide font-semibold text-pink-600 mb-1">
+      <PopoverContent align="start" className="p-3 min-w-96 max-w-none">
+        <div className="text-[10px] uppercase tracking-wide font-semibold text-spark-pink mb-1">
           {LOCALE_EN.PINK_SPARKS}
         </div>
         <div className="flex gap-2">
@@ -79,9 +69,10 @@ const PinkSparkSelector = ({
                   key={cat}
                   onClick={() => handlePinkSparkChange({ stat: cat })}
                   className={mergeTwClass(
-                    'min-w-0 text-xs rounded-full px-2 py-1 border transition-colors text-left bg-pink-50 hover:bg-pink-100 border-pink-200 text-pink-700',
+                    'min-w-0 text-xs rounded-full px-2 py-1 border transition-colors text-left bg-spark-pink-bg text-spark-pink-fg border-spark-pink/30 hover:border-spark-pink',
                     {
-                      'bg-pink-600 text-white border-pink-600': active,
+                      'ring-2 ring-primary border-spark-pink font-medium':
+                        active,
                     }
                   )}
                 >
@@ -103,16 +94,16 @@ const PinkSparkSelector = ({
                   key={level}
                   onClick={() => handlePinkSparkChange({ level })}
                   className={mergeTwClass(
-                    'text-xs rounded-full px-2 py-1 border flex items-center justify-center gap-0.5 transition-colors bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-800',
+                    'text-xs rounded-full px-2 py-1 border flex items-center justify-center gap-0.5 transition-colors bg-spark-amber-bg text-spark-amber-fg border-spark-amber/30 hover:border-spark-amber',
                     {
-                      'bg-amber-500 text-white border-amber-500': active,
+                      'ring-2 ring-primary border-spark-amber': active,
                     }
                   )}
                 >
                   {Array.from({ length: level }).map((_, i) => (
                     <Star
                       key={i}
-                      className="w-3 h-3 fill-amber-400 text-amber-400"
+                      className="w-3 h-3 fill-spark-amber text-spark-amber"
                     />
                   ))}
                 </button>
@@ -120,7 +111,7 @@ const PinkSparkSelector = ({
             })}
           </div>
         </div>
-        <div className="mt-1 text-[10px] text-green-700 font-medium flex items-center gap-1">
+        <div className="mt-1 text-[10px] text-muted-foreground font-medium flex items-center gap-1">
           <span>
             Stat Spark: {pinkSpark && pinkSpark.stat ? pinkSpark.stat : '?'}.
             Level: {pinkSpark && pinkSpark.level ? pinkSpark.level : '?'}★
