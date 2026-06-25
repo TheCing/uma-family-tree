@@ -1,6 +1,6 @@
 import { getBaseAffinity, getRaceAffinity } from '@/utils/affinity'
-import { CircleDot, Circle, Triangle } from 'lucide-react'
-import { useContext } from 'react'
+import { Heart } from 'lucide-react'
+import { useContext, useMemo } from 'react'
 import { TreeDataContext } from '../../contexts/TreeDataContext'
 import Tooltip from '../base/tooltip'
 import { LOCALE_EN } from '../../locale/en'
@@ -20,17 +20,7 @@ export default function AffinityDisplay({
   const treeDataContext = useContext(TreeDataContext)
   const { treeData } = treeDataContext || {}
 
-  const getAffinityIcon = (affinity: number) => {
-    if (affinity < 51) {
-      return <Triangle className="w-4 h-4 text-red-400" />
-    } else if (affinity < 151) {
-      return <Circle className="w-4 h-4 text-yellow-400" />
-    } else {
-      return <CircleDot className="w-4 h-4 text-green-400" />
-    }
-  }
-
-  const getAffinity = () => {
+  const affinity = useMemo(() => {
     if (!uma || !treeData) {
       return { total: 0, base: 0, race: 0 }
     }
@@ -50,27 +40,37 @@ export default function AffinityDisplay({
       base: baseAffinity,
       race: raceAffinity,
     }
-  }
+  }, [uma, treeData, level, position])
 
-  const affinity = getAffinity()
+  const tierClass =
+    affinity.total < 51
+      ? 'bg-danger text-danger-foreground'
+      : affinity.total < 151
+        ? 'bg-warning text-warning-foreground'
+        : 'bg-brand text-brand-foreground'
+
+  const tierLabel =
+    affinity.total < 51 ? 'low' : affinity.total < 151 ? 'medium' : 'high'
 
   return (
-    <>
-      <div className="flex justify-between">
-        <div className="text-xs uppercase tracking-wide font-semibold text-gray-600 dark:text-gray-50">
-          {LOCALE_EN.AFFINITY}
-        </div>
-        <div className="text-xs inline-flex gap-1">
-          <Tooltip
-            content={`From parents: ${affinity.base} | From races: ${affinity.race}`}
-          >
-            <span className="cursor-pointer font-bold underline">
-              {affinity.total}
-            </span>
-          </Tooltip>
-          <span>{getAffinityIcon(affinity.total) ?? null}</span>
-        </div>
+    <Tooltip
+      content={`From parents: ${affinity.base} | From races: ${affinity.race}`}
+    >
+      <div
+        className={`flex items-center justify-between rounded-full px-3 py-1 ${tierClass}`}
+        role="img"
+        aria-label={`${tierLabel} affinity, ${affinity.total}`}
+      >
+        <span className="inline-flex items-center gap-1.5">
+          <Heart className="w-3.5 h-3.5 fill-current" />
+          <span className="text-[10px] uppercase tracking-wide font-medium">
+            {LOCALE_EN.AFFINITY}
+          </span>
+        </span>
+        <span className="font-mono text-sm font-semibold tabular-nums">
+          {affinity.total}
+        </span>
       </div>
-    </>
+    </Tooltip>
   )
 }

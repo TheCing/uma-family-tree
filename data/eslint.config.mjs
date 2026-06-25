@@ -14,7 +14,7 @@ export default [
       },
     },
     rules: {
-      "@typescript-eslint/no-explicit-any": "off", // Allow any in backend for flexibility
+      "@typescript-eslint/no-explicit-any": "off", // Allow any in data-processing scripts for flexibility
     },
   },
 ];

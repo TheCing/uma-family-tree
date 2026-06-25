@@ -1,7 +1,7 @@
 import { Button } from '@/ui/base/button'
-import { Card, CardContent, CardHeader } from '@/ui/base/card'
+import { Card, CardContent } from '@/ui/base/card'
 import { getImagePath, getUmaNameById } from '@/utils/formatting'
-import { Trash2 } from 'lucide-react'
+import { Plus, Trash2 } from 'lucide-react'
 import React from 'react'
 import { useTreeData } from '../../hooks/useTreeData'
 import type {
@@ -20,10 +20,8 @@ import RaceSparkSelector from '../components/RaceSparkSelector'
 import AffinityDisplay from '../components/AffinityDisplay'
 import SparkProcDisplay from '../components/SparkProcDisplay'
 import SaveUmaButton from '../components/SaveUmaButton'
-import { Separator } from '../base/separator'
 import { getUmaBasicInfoById } from '../../utils/uma'
 
-import Golshiderp from '@/assets/home/images/misc/golshiderp.png'
 
 export interface UmaCardProps {
   uma?: Uma | null
@@ -123,13 +121,8 @@ const UmaCard: React.FC<ExtendedUmaCardProps> = ({
   }
 
   // Dynamic sizing based on level
-  const getCardSize = () => {
-    if (size === 'big') {
-      return 'min-h-[300px] min-w-[180px]'
-    } else {
-      return 'min-h-[300px]'
-    }
-  }
+  // Filled cards size to their (now dense) content; only set a min width.
+  const getCardSize = () => (size === 'big' ? 'min-w-[190px]' : 'min-w-[150px]')
 
   const basicInfo = uma ? getUmaBasicInfoById(uma.id) : null
 
@@ -139,102 +132,78 @@ const UmaCard: React.FC<ExtendedUmaCardProps> = ({
   if (!uma?.id) {
     return (
       <Card
-        className={`h-full ${getCardSize()} transition-all duration-300 hover:scale-105 hover:shadow-lg group bg-white dark:bg-gray-900 border-2 border-dashed border-gray-300 flex items-center`}
+        className={`h-full ${getCardSize()} ${isSmallSize ? 'min-h-[200px]' : 'min-h-[240px]'} flex p-0 overflow-hidden transition-colors group bg-card border-2 border-dashed border-border-strong hover:border-primary`}
       >
-        <CardContent
-          className={`${isSmallSize ? 'p-2 pt-0' : 'p-3 pt-0'} flex-1 flex flex-col items-center justify-center`}
+        <button
+          type="button"
+          onClick={() => onSelectUma(level, position)}
+          aria-label={`Select an Uma for position ${level}-${position}`}
+          className="flex-1 flex flex-col items-center justify-center gap-2 text-muted-foreground hover:bg-accent/40 transition-colors"
         >
-          <Button
-            variant="ghost"
-            className="w-full h-full flex flex-col items-center justify-center gap-2 text-gray-500 hover:bg-transparent dark:text-gray-400 min-h-[120px]"
-            onClick={() => onSelectUma(level, position)}
-          >
-            <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center">
-              <img src={Golshiderp} alt="Golshiderp" className="rounded-4xl" />
+          <div className="w-12 h-12 rounded-full border-2 border-dashed border-border-strong flex items-center justify-center">
+            <Plus className="w-6 h-6" />
+          </div>
+          <div className="text-center">
+            <div className="text-sm font-medium">Select Uma</div>
+            <div className="text-xs text-muted-foreground">
+              Click to choose character
             </div>
-            <div className="text-center">
-              <div className="text-sm font-medium">Select Uma</div>
-              <div className="text-xs text-gray-400">
-                Click to choose character
-              </div>
-            </div>
-          </Button>
-        </CardContent>
+          </div>
+        </button>
       </Card>
     )
   }
 
   return (
     <Card
-      className={`h-full ${getCardSize()} transition-all duration-300 hover:scale-105 hover:shadow-lg group bg-white dark:bg-gray-900 border-2`}
+      className={`h-full ${getCardSize()} transition-colors group bg-card border-2`}
       style={{
         borderColor: basicInfo?.dress_color_main ?? '#000000',
       }}
     >
-      <CardHeader className="p-3 pb-2">
-        <div className="flex justify-between items-center">
-          {
-            <div className="flex items-center gap-2 flex-1 mr-2">
-              <div className="w-8 h-8 bg-gray-200 dark:bg-gray-600 rounded-full flex items-center justify-center">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="h-6 w-6 p-0 transition-opacity cursor-pointer"
-                  onClick={() => onSelectUma(level, position)}
-                  title="Select Uma"
-                >
-                  <img
-                    src={getImagePath(uma.id)}
-                    alt={uma?.name || 'Uma Musume'}
-                    className="w-8 h-8 rounded-full object-cover"
-                    style={{ width: 32, height: 32 }}
-                  />
-                </Button>
-              </div>
-              <span
-                className="text-sm text-gray-800 dark:text-gray-200 cursor-pointer"
-                onClick={() => onSelectUma(level, position)}
-              >
-                {getUmaNameById(uma.id, false)}
-              </span>
-            </div>
-          }
-        </div>
-      </CardHeader>
-
       <CardContent
-        className={`${isSmallSize ? 'p-2 pt-0' : 'p-3 pt-0'} space-y-2`}
+        className={`${isSmallSize ? 'p-2 space-y-1.5' : 'p-2.5 space-y-2'}`}
       >
-        {/* BLUE SPARK SECTION */}
-        <div className={`grid ${isSmallSize ? 'gap-0.5' : 'gap-1'} relative`}>
+        {/* Header — click to change uma */}
+        <button
+          type="button"
+          onClick={() => onSelectUma(level, position)}
+          aria-label={`Change Uma at position ${level}-${position}`}
+          className="flex items-center gap-2 w-full text-left rounded-md p-1 -m-1 hover:bg-accent/40 transition-colors"
+        >
+          <div
+            className={`${isSmallSize ? 'w-7 h-7' : 'w-8 h-8'} bg-accent rounded-full flex items-center justify-center shrink-0 overflow-hidden`}
+          >
+            <img
+              src={getImagePath(uma.id)}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          <span
+            className={`${isSmallSize ? 'text-xs' : 'text-sm'} font-medium text-foreground truncate`}
+          >
+            {getUmaNameById(uma.id, false)}
+          </span>
+        </button>
+
+        {/* Spark cells */}
+        <div className="grid grid-cols-3 gap-1.5">
           <BlueSparkSelector
             blueSpark={blueSpark}
             onBlueSparkChange={handleBlueSparkChange}
           />
-        </div>
-
-        {/* PINK SPARK SECTION */}
-        <div
-          className={`grid grid-cols-1 ${isSmallSize ? 'gap-0.5' : 'gap-1'} relative`}
-        >
           <PinkSparkSelector
             pinkSpark={pinkSpark}
             onPinkSparkChange={handlePinkSparkChange}
           />
-        </div>
-
-        {/* GREEN SPARK SECTION */}
-        <div
-          className={`grid grid-cols-1 ${isSmallSize ? 'gap-0.5' : 'gap-1'}`}
-        >
           <GreenSparkSelector
             greenSpark={greenSpark}
             onGreenSparkChange={handleGreenSparkChange}
             uma={uma}
           />
         </div>
-        {/* WHITE SPARK SECTION */}
-        <div className={`grid grid-cols-2 gap-0.5`}>
+        <div className="grid grid-cols-2 gap-1.5">
           <RaceSparkSelector
             races={races}
             onRacesWonChange={handleRacesWonChange}
@@ -245,30 +214,21 @@ const UmaCard: React.FC<ExtendedUmaCardProps> = ({
             isSmallSize={isSmallSize}
           />
         </div>
-        <Separator
-          orientation="horizontal"
-          className="my-2 w-auto self-stretch"
-        />
-        {/* AFFINITY SECTION */}
+
+        {/* Affinity pill */}
         <AffinityDisplay uma={uma} level={level} position={position} />
-        <Separator
-          orientation="horizontal"
-          className="my-2 w-auto self-stretch"
-        />
-        {/* INSPIRATION CHANCE SECTION */}
+
+        {/* Inspiration chance */}
         <SparkProcDisplay level={level} position={position} />
-        <Separator
-          orientation="horizontal"
-          className="my-2 w-auto self-stretch"
-        />
-        {/* DELETE / SAVE BUTTONS */}
-        <div className={`flex gap-2 justify-between`}>
-          <SaveUmaButton className="w-1/2" uma={uma} />
+
+        {/* Save / clear */}
+        <div className="flex gap-1.5 pt-0.5">
+          <SaveUmaButton className="flex-1" uma={uma} />
           <Button
             onClick={handleClearData}
             variant="outline"
             size="sm"
-            className="cursor-pointer flex items-center gap-2 text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200 hover:border-red-300 dark:bg-red-600 dark:text-white w-1/2"
+            className="flex-1 text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/30 hover:border-destructive/50"
             title="Clear all data for this position"
           >
             <Trash2 className="w-4 h-4" />

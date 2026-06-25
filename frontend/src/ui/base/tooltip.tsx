@@ -23,10 +23,10 @@ const Tooltip = ({
         <TooltipPrimitive.Content
           side={side}
           align={align}
-          className="z-50 px-2 py-1 rounded bg-gray-800 text-white text-xs shadow-lg"
+          className="z-50 px-2 py-1 rounded-md bg-popover text-popover-foreground border border-border text-xs shadow-lg"
         >
           {content}
-          <TooltipPrimitive.Arrow className="fill-gray-800" />
+          <TooltipPrimitive.Arrow className="fill-popover" />
         </TooltipPrimitive.Content>
       </TooltipPrimitive.Portal>
     </TooltipPrimitive.Root>

@@ -127,7 +127,7 @@ export default function SparkProcDisplay({
         <div className="flex-1/4">
           {getBadgeBySpark(sparkDetail.type ?? '')}
         </div>
-        <div className="flex-1/4">
+        <div className="flex-1/4 font-mono tabular-nums">
           {to2Decimal(sparkDetail.chanceAtLeastOnce)}%
         </div>
       </div>
@@ -145,7 +145,7 @@ export default function SparkProcDisplay({
   return (
     <>
       <div className="flex justify-between">
-        <div className="text-xs uppercase tracking-wide font-semibold text-gray-600 dark:text-gray-50">
+        <div className="scoreboard-label">
           {LOCALE_EN.SPARK_PROCS}
         </div>
         <div className="text-xs inline-flex gap-1">
@@ -154,9 +154,13 @@ export default function SparkProcDisplay({
             onOpenChange={setShowSparkProcPopover}
           >
             <PopoverTrigger asChild>
-              <span className="cursor-pointer flex items-center gap-1">
+              <button
+                type="button"
+                className="cursor-pointer flex items-center gap-1"
+                aria-label="Show inspiration chance list"
+              >
                 <SquareArrowUpRightIcon className="w-4 h-4" />
-              </span>
+              </button>
             </PopoverTrigger>
             <PopoverContent
               sideOffset={16}
@@ -168,7 +172,7 @@ export default function SparkProcDisplay({
                 Inspiration Chance List (per career)
               </div>
               <div className="relative mb-3">
-                <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-gray-400" />
+                <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 w-3 h-3 text-muted-foreground" />
                 <Input
                   placeholder="Search by name..."
                   value={searchQuery}
@@ -178,21 +182,21 @@ export default function SparkProcDisplay({
               </div>
               <div className="flex gap-2 text-xs font-bold uppercase border-b pb-1 mb-1">
                 <button
-                  className="flex-1/2 flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-gray-800 px-1 py-0.5 rounded transition-colors cursor-pointer"
+                  className="flex-1/2 flex items-center gap-1 hover:bg-muted px-1 py-0.5 rounded-md transition-colors cursor-pointer"
                   onClick={() => handleSort('name')}
                 >
                   <span>Name</span>
                   {getSortIcon('name')}
                 </button>
                 <button
-                  className="flex-1/4 flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-gray-800 px-1 py-0.5 rounded transition-colors cursor-pointer"
+                  className="flex-1/4 flex items-center gap-1 hover:bg-muted px-1 py-0.5 rounded-md transition-colors cursor-pointer"
                   onClick={() => handleSort('type')}
                 >
                   <span>Type</span>
                   {getSortIcon('type')}
                 </button>
                 <button
-                  className="flex-1/4 flex items-center gap-1 hover:bg-gray-100 dark:hover:bg-gray-800 px-1 py-0.5 rounded transition-colors cursor-pointer"
+                  className="flex-1/4 flex items-center gap-1 hover:bg-muted px-1 py-0.5 rounded-md transition-colors cursor-pointer"
                   onClick={() => handleSort('chance')}
                 >
                   <span>Chance</span>

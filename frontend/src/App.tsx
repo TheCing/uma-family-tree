@@ -18,26 +18,29 @@ const AppContent: React.FC = () => {
 
   // Handle hash scrolling when location changes
   useEffect(() => {
-    if (location.hash) {
-      // Wait a bit for the component to render
-      setTimeout(() => {
-        const element = document.getElementById(location.hash.substring(1))
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' })
-        }
-      }, 100)
-    }
+    if (!location.hash) return
+
+    // Wait a bit for the component to render, and clear the timer if the
+    // location changes again before it fires.
+    const timer = setTimeout(() => {
+      const element = document.getElementById(location.hash.substring(1))
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, 100)
+
+    return () => clearTimeout(timer)
   }, [location])
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+    <div className="min-h-screen bg-card transition-colors">
       <Navigation currentPage={currentPage} onPageChange={() => {}} />
       <Routes>
         <Route
           path="/"
           element={
             <TreeDataProvider>
-              <div className="min-h-screen bg-gray-50 dark:bg-gray-800">
+              <div className="min-h-screen bg-background">
                 <BreedingTree />
               </div>
             </TreeDataProvider>

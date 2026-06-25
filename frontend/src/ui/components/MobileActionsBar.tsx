@@ -34,11 +34,11 @@ const MobileActionsBar = ({
   return (
     <div className="fixed w-full bottom-0 left-0 right-4 z-50 md:hidden">
       {notification && (
-        <div className="fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-md shadow-lg z-50">
+        <div className="fixed top-4 right-4 bg-success text-success-foreground px-4 py-2 rounded-md shadow-lg z-50">
           {notification}
         </div>
       )}
-      <div className="bg-white dark:bg-gray-800 shadow-lg border-gray-200 border-0 border-t-2 dark:border-gray-50 p-2 flex justify-around">
+      <div className="bg-card shadow-lg border-border border-0 border-t-2 p-2 flex justify-around">
         <Button
           size="sm"
           variant="ghost"

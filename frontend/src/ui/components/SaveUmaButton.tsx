@@ -3,6 +3,7 @@ import { Input } from '@/ui/base/input'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogFooter,
@@ -121,13 +122,16 @@ export default function SaveUmaButton({
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle>Save as preset</DialogTitle>
+            <DialogDescription>
+              Give this Uma a nickname to save it as a reusable preset.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
             {/* Show current Uma info if available */}
             {uma && (
-              <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <div className="text-sm text-gray-600 dark:text-gray-300">
+              <div className="p-3 bg-muted rounded-lg">
+                <div className="text-sm text-muted-foreground">
                   Current Uma:{' '}
                   <span className="font-medium">
                     {getUmaNameById(uma.id, false)}
@@ -151,10 +155,10 @@ export default function SaveUmaButton({
                 maxLength={60}
                 autoFocus
               />
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-muted-foreground">
                 {nickname.length}/60 characters
               </div>
-              {error && <div className="text-sm text-red-500">{error}</div>}
+              {error && <div className="text-sm text-destructive">{error}</div>}
             </div>
           </div>
 
@@ -175,32 +179,36 @@ export default function SaveUmaButton({
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <AlertTriangle className="w-5 h-5 text-amber-500" />
+              <AlertTriangle className="w-5 h-5 text-warning" />
               Override Existing Uma?
             </DialogTitle>
+            <DialogDescription>
+              Confirm whether to replace the existing preset that uses this
+              nickname.
+            </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-4">
-            <div className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="text-sm text-muted-foreground">
               A Uma with the nickname{' '}
               <span className="font-semibold">"{nickname}"</span> already
               exists.
             </div>
 
             {existingUma && (
-              <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border">
+              <div className="p-3 bg-muted rounded-lg border border-border">
                 <div className="text-sm">
-                  <div className="font-medium text-gray-900 dark:text-gray-100">
+                  <div className="font-medium text-foreground">
                     Current: {getUmaNameById(existingUma.id, false)}
                   </div>
-                  <div className="text-gray-500 dark:text-gray-400 text-xs mt-1">
+                  <div className="text-muted-foreground text-xs mt-1">
                     Saved: {new Date(existingUma.savedAt).toLocaleString()}
                   </div>
                 </div>
               </div>
             )}
 
-            <div className="text-sm text-gray-600 dark:text-gray-300">
+            <div className="text-sm text-muted-foreground">
               Do you want to override it with the current Uma configuration?
             </div>
           </div>
@@ -211,7 +219,7 @@ export default function SaveUmaButton({
             </Button>
             <Button
               onClick={handleOverrideConfirm}
-              className="bg-amber-600 hover:bg-amber-700"
+              className="bg-warning text-warning-foreground hover:bg-warning/90"
             >
               Override
             </Button>

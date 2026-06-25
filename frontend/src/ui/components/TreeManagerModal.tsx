@@ -3,21 +3,13 @@ import { Input } from '@/ui/base/input'
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from '@/ui/base/dialog'
 import { Badge } from '@/ui/base/badge'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/ui/base/tabs'
-import {
-  FolderOpen,
-  Trash2,
-  Users,
-  Layers,
-  RefreshCw,
-  Save,
-  Plus,
-  Disc2,
-} from 'lucide-react'
+import { FolderOpen, Trash2, Users, Layers, Save } from 'lucide-react'
 import { useState } from 'react'
 import { useSavedTrees, SavedTree } from '../../hooks/useSavedTrees'
 import { useTreeData } from '../../hooks'
@@ -173,6 +165,9 @@ export default function TreeManagerModal({
             Save & Load Breeding Trees
             <Badge variant="secondary">{stats.total}/5</Badge>
           </DialogTitle>
+          <DialogDescription>
+            Save the current breeding tree or load a previously saved one.
+          </DialogDescription>
         </DialogHeader>
 
         <Tabs>
@@ -199,8 +194,8 @@ export default function TreeManagerModal({
           <TabsContent isActive={activeTab === 'load'}>
             <div className="mt-6">
               {!stats.hasAny ? (
-                <div className="text-center py-12 text-gray-500">
-                  <FolderOpen className="w-16 h-16 mx-auto mb-4 text-gray-300" />
+                <div className="text-center py-12 text-muted-foreground">
+                  <FolderOpen className="w-16 h-16 mx-auto mb-4 text-muted-foreground/50" />
                   <h3 className="text-lg font-medium mb-2">No saved trees</h3>
                   <p className="text-sm">
                     Save your current breeding tree to access it later.
@@ -218,7 +213,7 @@ export default function TreeManagerModal({
                       return (
                         <div
                           key={tree.id}
-                          className="border rounded-lg p-4 hover:shadow-md transition-shadow"
+                          className="border border-border rounded-lg p-4 hover:shadow-md transition-shadow"
                         >
                           <div className="flex items-start justify-between">
                             <div className="flex-1 min-w-0">
@@ -226,7 +221,7 @@ export default function TreeManagerModal({
                                 {tree.name}
                               </h3>
 
-                              <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                              <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                                 <div className="flex items-center gap-1">
                                   <Users className="w-4 h-4" />
                                   <span>
@@ -240,7 +235,7 @@ export default function TreeManagerModal({
                                   <span>{summary.maxLevel} levels</span>
                                 </div>
                               </div>
-                              <p className="text-xs text-gray-500 mt-2">
+                              <p className="text-xs text-muted-foreground mt-2">
                                 Saved: {formatDate(tree.savedAt)}
                                 {tree.savedAt !== tree.updatedAt && (
                                   <> • Updated: {formatDate(tree.updatedAt)}</>
@@ -264,7 +259,7 @@ export default function TreeManagerModal({
                                 size="sm"
                                 onClick={() => handleOverwriteTree(tree)}
                                 disabled={isOverwriting}
-                                className="text-white-600 hover:text-black hover:bg-gray-50 border-gray-200 hover:border-gray-300 whitespace-nowrap"
+                                className="text-muted-foreground hover:text-foreground hover:bg-accent border-border hover:border-border-strong whitespace-nowrap"
                               >
                                 {isOverwriting ? 'Updating...' : 'Overwrite'}
                               </Button>
@@ -274,7 +269,7 @@ export default function TreeManagerModal({
                                 size="sm"
                                 onClick={() => handleDeleteTree(tree)}
                                 disabled={isDeleting}
-                                className="text-red-600 hover:text-red-700 hover:bg-red-50 border-red-200 hover:border-red-300"
+                                className="text-destructive hover:text-destructive hover:bg-destructive/10 border-destructive/30 hover:border-destructive/50"
                               >
                                 <Trash2 className="w-4 h-4" />
                               </Button>
@@ -308,18 +303,18 @@ export default function TreeManagerModal({
                   autoFocus
                   disabled={isSaving}
                 />
-                <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex justify-between text-xs text-muted-foreground">
                   <span>{treeName.length}/100 characters</span>
                   <span>{stats.total}/5 trees saved</span>
                 </div>
                 {saveError && (
-                  <div className="text-sm text-red-500">{saveError}</div>
+                  <div className="text-sm text-destructive">{saveError}</div>
                 )}
               </div>
 
               {stats.maxReached && (
-                <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
-                  <p className="text-sm text-amber-800">
+                <div className="p-3 bg-warning/10 border border-warning/30 rounded-md">
+                  <p className="text-sm text-warning">
                     <strong>Warning:</strong> You have reached the maximum of 5
                     saved trees. You'll need to delete an existing tree before
                     saving a new one.

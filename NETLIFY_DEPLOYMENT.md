@@ -36,7 +36,7 @@ This project is configured for easy deployment of the frontend-only to Netlify w
 ### Build Optimization:
 
 - Only rebuilds when frontend-related files change
-- Ignores backend changes to avoid unnecessary builds
+- Skips builds when only data-processing or universal assets change
 - Proper handling of TypeScript path aliases (`@` and `~`)
 
 ### Performance & Security:

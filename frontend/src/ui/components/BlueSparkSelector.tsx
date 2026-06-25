@@ -1,6 +1,6 @@
-import { Badge } from '@/ui/base/badge'
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui/base/popover'
 import { Separator } from '@/ui/base/separator'
+import SparkCell, { SparkStars } from '@/ui/base/spark-cell'
 import { Star } from 'lucide-react'
 import React from 'react'
 import type { BlueSparkData } from '../../types/uma'
@@ -27,34 +27,24 @@ const BlueSparkSelector = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Badge
-          variant="outline"
-          role="button"
-          className={`text-xs w-full justify-center bg-blue-50 border-blue-200 cursor-pointer select-none dark:bg-blue-400`}
+        <SparkCell
+          tint="blue"
+          label={LOCALE_EN.STATS}
+          empty={!(blueSpark && blueSpark.stat)}
           title="Set Blue Spark Stat & Level"
         >
-          {blueSpark && blueSpark.stat && blueSpark.level ? (
-            <span className="flex items-center gap-0.5">
-              <span>{blueSpark.stat}</span>
-              <span className="flex">
-                {Array.from({ length: blueSpark.level }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-3 h-3 fill-blue-400 text-blue-400 dark:fill-blue-50 dark:text-blue-50"
-                  />
-                ))}
-              </span>
-            </span>
+          {blueSpark && blueSpark.stat ? (
+            <>
+              <span className="truncate">{blueSpark.stat}</span>
+              {blueSpark.level ? <SparkStars level={blueSpark.level} /> : null}
+            </>
           ) : (
-            LOCALE_EN.STATS
+            '—'
           )}
-        </Badge>
+        </SparkCell>
       </PopoverTrigger>
-      <PopoverContent
-        align="start"
-        className="p-3 w-64 max-w-none border-blue-200"
-      >
-        <div className="text-[10px] uppercase tracking-wide font-semibold text-blue-600 mb-1">
+      <PopoverContent align="start" className="p-3 w-64 max-w-none">
+        <div className="text-[10px] uppercase tracking-wide font-semibold text-spark-blue mb-1">
           {LOCALE_EN.BLUE_SPARKS}
         </div>
         <div className="flex gap-2">
@@ -66,9 +56,10 @@ const BlueSparkSelector = ({
                   key={stat}
                   onClick={() => handleBlueSparkChange({ stat: stat })}
                   className={mergeTwClass(
-                    'text-xs rounded-full px-2 py-1 border transition-colors text-left truncate bg-blue-50 hover:bg-blue-100 border-blue-200 text-blue-700',
+                    'text-xs rounded-full px-2 py-1 border transition-colors text-left truncate bg-spark-blue-bg text-spark-blue-fg border-spark-blue/30 hover:border-spark-blue',
                     {
-                      'bg-blue-600 text-white border-blue-600': active,
+                      'ring-2 ring-primary border-spark-blue font-medium':
+                        active,
                     }
                   )}
                 >
@@ -90,16 +81,16 @@ const BlueSparkSelector = ({
                   key={level}
                   onClick={() => handleBlueSparkChange({ level: level })}
                   className={mergeTwClass(
-                    'text-xs rounded-full px-2 py-1 border flex items-center justify-center gap-0.5 transition-colors bg-amber-50 hover:bg-amber-100 border-amber-200 text-amber-800',
+                    'text-xs rounded-full px-2 py-1 border flex items-center justify-center gap-0.5 transition-colors bg-spark-amber-bg text-spark-amber-fg border-spark-amber/30 hover:border-spark-amber',
                     {
-                      'bg-amber-500 text-white border-amber-500': active,
+                      'ring-2 ring-primary border-spark-amber': active,
                     }
                   )}
                 >
                   {Array.from({ length: level }).map((_, i) => (
                     <Star
                       key={i}
-                      className="w-3 h-3 fill-amber-400 text-amber-400"
+                      className="w-3 h-3 fill-spark-amber text-spark-amber"
                     />
                   ))}
                 </button>
@@ -107,7 +98,7 @@ const BlueSparkSelector = ({
             })}
           </div>
         </div>
-        <div className="mt-1 text-[10px] text-green-700 font-medium flex items-center gap-1">
+        <div className="mt-1 text-[10px] text-muted-foreground font-medium flex items-center gap-1">
           <span>
             Stat Spark: {blueSpark && blueSpark.stat ? blueSpark.stat : '?'}.
             Level: {blueSpark && blueSpark.level ? blueSpark.level : '?'}★

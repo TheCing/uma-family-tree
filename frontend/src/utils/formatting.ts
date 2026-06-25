@@ -67,12 +67,12 @@ export const renderSparkType = (type: keyof typeof BASE_CHANCE): string => {
 }
 
 export const pickBadgeColorBySparkType = (type: string): string => {
-  if (type === 'greenSpark') return 'bg-green-100 text-green-700'
-  if (type === 'blueSpark') return 'bg-blue-100 text-blue-700'
-  if (type === 'pinkSpark') return 'bg-pink-100 text-pink-700'
-  if (type === 'whiteSpark') return 'bg-gray-100 text-gray-700'
-  if (type === 'raceSpark') return 'bg-yellow-100 text-yellow-700'
-  return 'bg-gray-100 text-gray-700'
+  if (type === 'greenSpark') return 'bg-spark-green-bg text-spark-green-fg'
+  if (type === 'blueSpark') return 'bg-spark-blue-bg text-spark-blue-fg'
+  if (type === 'pinkSpark') return 'bg-spark-pink-bg text-spark-pink-fg'
+  if (type === 'whiteSpark') return 'bg-spark-white-bg text-spark-white-fg'
+  if (type === 'raceSpark') return 'bg-spark-amber-bg text-spark-amber-fg'
+  return 'bg-spark-white-bg text-spark-white-fg'
 }
 
 export const renderSparkInfo = (spark: SparkData | undefined) => {

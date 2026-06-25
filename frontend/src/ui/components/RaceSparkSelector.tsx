@@ -1,9 +1,8 @@
-import { Badge } from '@/ui/base/badge'
 import { Checkbox } from '@/ui/base/checkbox'
 import { Popover, PopoverContent, PopoverTrigger } from '@/ui/base/popover'
+import SparkCell from '@/ui/base/spark-cell'
 import { RaceWithDate, WHITE_SPARK_RACES } from '../../assets/white-sparks'
 import type { RacesData } from '../../types/uma'
-import { LOCALE_EN } from '../../locale/en'
 
 interface RaceSparkSelectorProps {
   races?: string[]
@@ -34,28 +33,26 @@ export default function RaceSparkSelector({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Badge
-          variant="outline"
-          role="button"
-          className={
-            'text-xs w-full justify-center cursor-pointer select-none bg-yellow-500 hover:bg-yellow-600 text-yellow-900'
-          }
+        <SparkCell
+          tint="neutral"
+          label="G1 Wins"
+          empty={!races?.length}
           title="Set White Spark Races"
         >
-          <span className="flex items-center gap-0.5">
-            <span>
-              {LOCALE_EN.G1_WINS} ({races.length})
-            </span>
-          </span>
-        </Badge>
+          {races?.length ? (
+            <span className="font-mono tabular-nums">{races.length}</span>
+          ) : (
+            '—'
+          )}
+        </SparkCell>
       </PopoverTrigger>
       <PopoverContent align="start" className="p-3 w-full max-w-dvw">
         <div className="flex justify-between items-center">
-          <div className="text-xs uppercase tracking-wide font-semibold text-gray-600 mb-2">
+          <div className="text-xs uppercase tracking-wide font-semibold text-spark-white mb-2">
             Races Won
           </div>
           <button
-            className="cursor-pointer text-xs uppercase tracking-wide font-semibold text-red-600 mb-2"
+            className="cursor-pointer text-xs uppercase tracking-wide font-semibold text-destructive mb-2"
             onClick={clearAllRaces}
           >
             Clear All
@@ -65,13 +62,13 @@ export default function RaceSparkSelector({
           <div className="grid grid-cols-1 gap-2">
             {Object.entries(WHITE_SPARK_RACES).map(([month, raceList]) => (
               <div key={month}>
-                <span className="text-[10px] text-bold">{month}</span>
+                <span className="text-[10px] font-bold">{month}</span>
                 {raceList.map((race: RaceWithDate) => {
                   const isSelected = races.includes(race.name)
                   return (
                     <label
                       key={race.name}
-                      className="flex items-center space-x-2 cursor-pointer hover:bg-gray-50 p-1 rounded text-xs dark:hover:bg-gray-400"
+                      className="flex items-center space-x-2 cursor-pointer hover:bg-muted p-1 rounded-md text-xs"
                     >
                       <Checkbox
                         checked={isSelected}
@@ -85,7 +82,7 @@ export default function RaceSparkSelector({
             ))}
           </div>
         </div>
-        <div className="mt-2 text-[10px] text-green-700 font-medium flex items-center gap-1">
+        <div className="mt-2 text-[10px] text-muted-foreground font-medium flex items-center gap-1">
           Selected: {races.length} race(s)
         </div>
       </PopoverContent>

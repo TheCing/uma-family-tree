@@ -14,32 +14,30 @@ const dressDataRaw = fs.readFileSync(dressDataPath, 'utf-8')
 const dressData: Array<DressData> = JSON.parse(dressDataRaw)
 
 const exportCharacterNames = async () => {
-  const dressIds = new Set(dressData.map(item => item.id.toString()))
+  const formatCharacter = (item: TextData): CharacterNameID => {
+    const id = item.index.toString()
+    const base = id.slice(0, 4)
+    // Prefer the costume's own border color; alt costumes have no dress_data
+    // row of their own, so fall back to the character's base outfit color.
+    const dress =
+      dressData.find(d => d.id.toString() === id) ??
+      dressData.find(d => d.id.toString().slice(0, 4) === base)
+    return {
+      chara_id: id,
+      chara_name: item.text,
+      chara_id_base: base,
+      dress_color_main: `#${dress?.dress_color_main || '000000'}`,
+    }
+  }
 
-  const formatCharacter = (item: TextData): CharacterNameID => ({
-    chara_id: item.index.toString(),
-    chara_name: item.text,
-    chara_id_base: item.index.toString().slice(0, 4),
-    dress_color_main: `#${
-      dressData.find(d => d.id.toString() === item.index.toString())
-        ?.dress_color_main || '000000'
-    }`,
-  })
-  console.log('dress id', JSON.stringify(dressIds, null, 2))
+  // Category 4 holds outfit/costume titles ("[Special Dreamer] Special Week").
+  // Every playable costume (incl. alternates) has one; bases 9xxx are NPCs.
   const result = allTexts
-    .filter(item =>
-      // matching "index" to "id" and category to 4 OR 75 (character names)?
-      {
-        if (
-          dressIds.has(item.index.toString()) &&
-          (item.category === 4 || item.category === 75)
-        ) {
-          console.log('Found matching character', item.text)
-          return true
-        }
-        return false
-      }
-    )
+    .filter(item => {
+      if (item.category !== 4) return false
+      const base = Number(item.index.toString().slice(0, 4))
+      return base >= 1000 && base < 9000
+    })
     .map(formatCharacter)
 
   return new Promise<void>((resolve, reject) => {
