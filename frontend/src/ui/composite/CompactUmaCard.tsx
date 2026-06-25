@@ -1,6 +1,6 @@
 import { Button } from '@/ui/base/button'
 import { Card, CardContent } from '@/ui/base/card'
-import { Trash2, User } from 'lucide-react'
+import { Plus, Trash2, User } from 'lucide-react'
 import React from 'react'
 import { useTreeData } from '../../hooks/useTreeData'
 import type {
@@ -138,19 +138,36 @@ const CompactUmaCard: React.FC<CompactUmaCardProps> = ({
       </div>
 
       <CardContent className="p-2 space-y-2">
-        {/* Header — click to change uma */}
+        {/* Header — click to choose / change the character */}
         <button
           type="button"
           onClick={() => onSelectUma(level, position)}
-          aria-label={`Change Uma at position ${level}-${position}`}
+          aria-label={
+            uma.isBlank
+              ? `Assign a character to position ${level}-${position}`
+              : `Change Uma at position ${level}-${position}`
+          }
           className="flex items-center gap-2 w-full text-left rounded-md p-1 -m-1 hover:bg-accent/40 transition-colors"
         >
-          <div className="w-8 h-8 shrink-0">
-            <UmaImage charaId={uma.id} alt={uma.name || 'Uma'} />
-          </div>
-          <span className="text-sm font-medium text-foreground truncate">
-            {getUmaNameById(uma.id, false)}
-          </span>
+          {uma.isBlank ? (
+            <>
+              <div className="w-8 h-8 shrink-0 rounded-full border-2 border-dashed border-border-strong flex items-center justify-center text-muted-foreground">
+                <Plus className="w-4 h-4" />
+              </div>
+              <span className="text-sm font-medium italic text-muted-foreground truncate">
+                Blank slot
+              </span>
+            </>
+          ) : (
+            <>
+              <div className="w-8 h-8 shrink-0">
+                <UmaImage charaId={uma.id} alt={uma.name || 'Uma'} />
+              </div>
+              <span className="text-sm font-medium text-foreground truncate">
+                {getUmaNameById(uma.id, false)}
+              </span>
+            </>
+          )}
         </button>
 
         {/* Spark cells */}

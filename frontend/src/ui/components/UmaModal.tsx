@@ -7,7 +7,9 @@ import {
 } from '@/ui/base/dialog'
 import { Input } from '@/ui/base/input'
 import { Checkbox } from '@/ui/base/checkbox'
-import { Search, Heart, BookMarkedIcon } from 'lucide-react'
+import { Search, Heart, BookMarkedIcon, SquareDashed } from 'lucide-react'
+import { Button } from '@/ui/base/button'
+import { BLANK_UMA_ID } from '@/types/uma'
 import { useMemo, useState } from 'react'
 
 import { CharacterNameID } from '@/types/characterNameId'
@@ -176,18 +178,30 @@ const UmaModal = ({
             />
           </div>
 
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="sort-affinity"
-              checked={sortByAffinity}
-              onCheckedChange={handleSortChange}
-            />
-            <label
-              htmlFor="sort-affinity"
-              className="text-sm font-medium text-muted-foreground"
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="sort-affinity"
+                checked={sortByAffinity}
+                onCheckedChange={handleSortChange}
+              />
+              <label
+                htmlFor="sort-affinity"
+                className="text-sm font-medium text-muted-foreground"
+              >
+                Sort by affinity
+              </label>
+            </div>
+            <Button
+              variant="soft"
+              size="sm"
+              className="gap-2"
+              onClick={() => onSelectUma(BLANK_UMA_ID, '', level, position)}
+              title="Fill this slot with a blank placeholder (no character, sparks editable)"
             >
-              Sort by affinity
-            </label>
+              <SquareDashed className="w-4 h-4" />
+              Use blank placeholder
+            </Button>
           </div>
 
           <Tabs className="w-full">

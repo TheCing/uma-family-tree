@@ -11,6 +11,7 @@ import type {
   RacesData,
   WhiteSparkData,
 } from '../../types/uma'
+import { BLANK_UMA_ID } from '../../types/uma'
 import { useTreeData } from '../../hooks/useTreeData'
 import { useIsMobile } from '../../hooks/useIsMobile'
 import UmaCard from './UmaCard'
@@ -68,10 +69,14 @@ const BreedingTree = () => {
     level: number,
     position: number
   ): void => {
+    const isBlank = umaId === BLANK_UMA_ID
     updateTreeData(level, position, {
       id: umaId,
       baseId: baseUmaId,
-      name: umaList.find(uma => uma.chara_id === umaId)?.chara_name,
+      name: isBlank
+        ? 'Blank slot'
+        : umaList.find(uma => uma.chara_id === umaId)?.chara_name,
+      isBlank,
     })
     setModalOpen(false)
   }

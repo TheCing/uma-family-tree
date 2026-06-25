@@ -156,35 +156,58 @@ const UmaCard: React.FC<ExtendedUmaCardProps> = ({
 
   return (
     <Card
-      className={`h-full ${getCardSize()} transition-colors group bg-card border-2`}
-      style={{
-        borderColor: basicInfo?.dress_color_main ?? '#000000',
-      }}
+      className={`h-full ${getCardSize()} transition-colors group bg-card border-2 ${uma.isBlank ? 'border-dashed border-border-strong' : ''}`}
+      style={
+        uma.isBlank
+          ? undefined
+          : { borderColor: basicInfo?.dress_color_main ?? '#000000' }
+      }
     >
       <CardContent
         className={`${isSmallSize ? 'p-2 space-y-1.5' : 'p-2.5 space-y-2'}`}
       >
-        {/* Header — click to change uma */}
+        {/* Header — click to choose / change the character */}
         <button
           type="button"
           onClick={() => onSelectUma(level, position)}
-          aria-label={`Change Uma at position ${level}-${position}`}
+          aria-label={
+            uma.isBlank
+              ? `Assign a character to position ${level}-${position}`
+              : `Change Uma at position ${level}-${position}`
+          }
           className="flex items-center gap-2 w-full text-left rounded-md p-1 -m-1 hover:bg-accent/40 transition-colors"
         >
-          <div
-            className={`${isSmallSize ? 'w-7 h-7' : 'w-8 h-8'} bg-accent rounded-full flex items-center justify-center shrink-0 overflow-hidden`}
-          >
-            <img
-              src={getImagePath(uma.id)}
-              alt=""
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <span
-            className={`${isSmallSize ? 'text-xs' : 'text-sm'} font-medium text-foreground truncate`}
-          >
-            {getUmaNameById(uma.id, false)}
-          </span>
+          {uma.isBlank ? (
+            <>
+              <div
+                className={`${isSmallSize ? 'w-7 h-7' : 'w-8 h-8'} rounded-full border-2 border-dashed border-border-strong flex items-center justify-center shrink-0 text-muted-foreground`}
+              >
+                <Plus className="w-4 h-4" />
+              </div>
+              <span
+                className={`${isSmallSize ? 'text-xs' : 'text-sm'} font-medium italic text-muted-foreground truncate`}
+              >
+                Blank slot
+              </span>
+            </>
+          ) : (
+            <>
+              <div
+                className={`${isSmallSize ? 'w-7 h-7' : 'w-8 h-8'} bg-accent rounded-full flex items-center justify-center shrink-0 overflow-hidden`}
+              >
+                <img
+                  src={getImagePath(uma.id)}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <span
+                className={`${isSmallSize ? 'text-xs' : 'text-sm'} font-medium text-foreground truncate`}
+              >
+                {getUmaNameById(uma.id, false)}
+              </span>
+            </>
+          )}
         </button>
 
         {/* Spark cells */}

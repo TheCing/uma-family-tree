@@ -20,10 +20,15 @@ export type AncestorData = {
 } | null
 
 export type UmaParent = Record<string, AncestorData>
+/** Sentinel id used for a blank placeholder slot (keeps the slot "filled"). */
+export const BLANK_UMA_ID = 'blank'
+
 export interface Uma {
   id: string
   baseId: string
   name?: string
+  /** A placeholder slot: sparks/races are set but no character is chosen. */
+  isBlank?: boolean
   affinity?: number
   blueSpark?: SparkData
   pinkSpark?: SparkData

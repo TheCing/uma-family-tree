@@ -42,6 +42,25 @@ export default function AffinityDisplay({
     }
   }, [uma, treeData, level, position])
 
+  // A blank placeholder has no character, so affinity is indeterminate.
+  if (uma?.isBlank) {
+    return (
+      <div
+        className="flex items-center justify-between rounded-full px-3 py-1 bg-muted text-muted-foreground"
+        role="img"
+        aria-label="Affinity unavailable for a blank slot"
+      >
+        <span className="inline-flex items-center gap-1.5">
+          <Heart className="w-3.5 h-3.5" />
+          <span className="text-[10px] uppercase tracking-wide font-medium">
+            {LOCALE_EN.AFFINITY}
+          </span>
+        </span>
+        <span className="font-mono text-sm font-semibold">—</span>
+      </div>
+    )
+  }
+
   const tierClass =
     affinity.total < 51
       ? 'bg-danger text-danger-foreground'
